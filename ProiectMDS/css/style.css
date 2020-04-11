@@ -1,0 +1,99 @@
+html {
+    font-size: 16px;
+}
+
+body {
+    background-image: url('../img/sand.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+}
+
+.list-title {
+    text-align: center;
+    filter: invert(1);
+}
+
+.task {
+    position: relative;
+    width: 80%;
+    min-height: 60px;
+    border-radius: 10px;
+    margin: auto;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;flex-wrap: wrap;
+    justify-content: center;
+    padding-left: 35px;
+    padding-right: 30px;
+    background-color: whitesmoke;
+}
+
+.task p {
+    display: inline-block;
+    line-height: normal;
+    vertical-align: middle;
+    padding: 10px;
+    margin: 0;
+    word-break: break-word;
+}
+
+.unchecked {
+    display: inline-block;
+    left: 5px;
+    color: rgb(66, 66, 66);
+    position: absolute;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 25px;
+    padding: 5px;
+}
+
+.delete-task {
+    display: inline-block;
+    position: absolute;
+    right: 15px;
+    color: red;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 20px;
+}
+
+.add-todo {
+    position: relative;
+    display: flex;
+    border-radius: 5px;
+    background-color: white;
+    margin: auto;
+    margin-top: 20px;
+    width: 80%;
+    background-color: rgba(0, 0, 0, 0.5);
+    height: 60px;
+
+}
+
+.todoinput {
+    position: relative;
+    left: 20px;
+    border: none;
+    padding: 5px;
+    background: transparent;
+    color: white;
+    width: calc(100% - 57px);
+}
+
+button.createtodo {
+    position: relative;
+    left: 5px;
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 25px;
+    outline: none;
+}
+
+::placeholder {
+    /* Most modern browsers support this now. */
+    color: gray;
+}

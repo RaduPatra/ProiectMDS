@@ -22,9 +22,15 @@ class item {
         
         check.classList.add("far", "fa-circle", "unchecked");
         check.addEventListener('click', function(e) {
-            e.currentTarget.classList.remove("fa-circle", "unchecked")
-            e.currentTarget.classList.add("fa-check-circle")
- 	     }, false);
+			if (e.currentTarget.classList.contains("unchecked")){
+				e.currentTarget.classList.remove("fa-circle", "unchecked")
+				e.currentTarget.classList.add("fa-check-circle")
+			}
+			else{
+				e.currentTarget.classList.remove("fa-check-circle")
+				e.currentTarget.classList.add("fa-circle", "unchecked"	)
+			}
+		}, false);
         
         remove.classList.add("fal", "fa-trash-alt", "delete-task");
         remove.addEventListener('click', function (e) {

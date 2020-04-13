@@ -11,6 +11,10 @@ class item {
         var check = document.createElement('i');
         var input = document.createElement('p');
         var remove = document.createElement('i');
+        var editbtn = document.createElement('button');
+
+
+        editbtn.classList.add("edit-task", "fa", "fa-edit");
 
         task.classList.add('task');
         input.textContent = name;
@@ -18,23 +22,31 @@ class item {
         input.classList.add('text');
         check.classList.add("far", "fa-circle", "unchecked");
         remove.classList.add("fal", "fa-trash-alt", "delete-task");
-        remove.addEventListener('click', function(e) {
-			e.currentTarget.parentNode.remove();
-		  }, false);
+
+
+        remove.addEventListener('click', function (e) {
+            e.currentTarget.parentNode.remove();
+        }, false);
+
 
         tasks.appendChild(task);
         task.appendChild(check);
         task.appendChild(input);
         task.appendChild(remove);
+        task.appendChild(editbtn);
+    }
+    remove()
+    {
+        
     }
 
 }
 
 add.addEventListener('click', check);
 window.addEventListener('keydown', (e) => {
-	if(e.which == 13){
-		check();
-	}
+    if (e.which == 13) {
+        check();
+    }
 })
 
 function check() {
@@ -44,15 +56,5 @@ function check() {
     }
 }
 
-
-function deleteParentElement (){
-    var icon = document.getElementsByClassName("fal fa-trash-alt delete-task")
-
-    for (var i = 0; i < icon.length; i++) {
-      icon[i].addEventListener('click', function(e) {
-    e.currentTarget.parentNode.remove();
-  }, false);
-}
-}
-
-deleteParentElement();
+new item("Go shopping");
+new item("Drink coffee");

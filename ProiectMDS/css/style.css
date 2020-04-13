@@ -97,3 +97,8 @@ button.createtodo {
     /* Most modern browsers support this now. */
     color: gray;
 }
+
+.task:hover{
+    color: gray;
+    opacity: 85%;
+}

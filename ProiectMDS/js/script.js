@@ -8,4 +8,6 @@ function deleteParentElement (){
 	}
 }
 
-window.onload = deleteParentElement()
+window.onload = function(){
+	deleteParentElement()//butoanele de trash can la apasare sterg div-ul parinte
+}

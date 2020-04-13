@@ -40,7 +40,8 @@ body {
 }
    
 
-.unchecked {
+/* pentru butonul de check */
+.unchecked, .fa-check-circle{
     display: inline-block;
     left: 5px;
     color: rgb(66, 66, 66);

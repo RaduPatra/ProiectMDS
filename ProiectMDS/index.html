@@ -1,4 +1,4 @@
-<!-- CODE EXPLAINED CHANNEL -->
+﻿<!-- CODE EXPLAINED CHANNEL -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://kit-pro.fontawesome.com/releases/latest/css/pro.min.css">
     <link rel="stylesheet" href="css/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
 </head>
 
 <body>
@@ -24,16 +25,22 @@
 
             <div class="task" id="task-1" data-tasks>
                 <i class="far fa-circle unchecked"></i>
-                <p class="text">Go shopping</p>
-                 <i class="fal fa-trash-alt delete-task"></i>
+                <p class="text">Go shopping</p>              
+                    <i class="fal fa-trash-alt delete-task"></i>   
+                <button class ="edit-task" id="edit">
+                <i class="fa fa-edit "></i>
+                </button>
             </div>
 
             <!--task 2-->
             <div class="task" id="task-2" data-tasks>
                 <!-- <button class="btn unchecked"><i class="far fa-circle"></i></button> -->
                 <i class="far fa-circle unchecked"></i>
-                <p class="text">Drink Coffee</p>
-              <i class="fal fa-trash-alt delete-task"></i>
+                <p class="text">Drink Coffee</p>                
+                <i class="fal fa-trash-alt delete-task"></i>                
+                <button class="edit-task" id="edit">
+                    <i class="fa fa-edit "></i>
+                </button>
             </div>
         </div>
 
@@ -47,7 +54,7 @@
     
 
 
-
+        <script src="Edit.js"></script>
 </body>
 
 </html>

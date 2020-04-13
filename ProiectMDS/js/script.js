@@ -18,21 +18,25 @@ class item {
         input.classList.add('text');
         check.classList.add("far", "fa-circle", "unchecked");
         remove.classList.add("fal", "fa-trash-alt", "delete-task");
-        remove.addEventListener('click', () => this.deletetask());
+
+
+        remove.addEventListener('click', function (e) {
+            e.currentTarget.parentNode.remove();
+            }, false);
+
 
         tasks.appendChild(task);
         task.appendChild(check);
         task.appendChild(input);
         task.appendChild(remove);
     }
-
 }
 
 add.addEventListener('click', check);
 window.addEventListener('keydown', (e) => {
-	if(e.which == 13){
-		check();
-	}
+    if (e.which == 13) {
+        check();
+    }
 })
 
 function check() {
@@ -41,5 +45,3 @@ function check() {
         inputValue.value = "";
     }
 }
-
-

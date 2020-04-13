@@ -18,12 +18,15 @@ class item {
 
         task.classList.add('task');
         input.textContent = name;
-
         input.classList.add('text');
+        
         check.classList.add("far", "fa-circle", "unchecked");
+        check.addEventListener('click', function(e) {
+            e.currentTarget.classList.remove("fa-circle", "unchecked")
+            e.currentTarget.classList.add("fa-check-circle")
+ 	     }, false);
+        
         remove.classList.add("fal", "fa-trash-alt", "delete-task");
-
-
         remove.addEventListener('click', function (e) {
             e.currentTarget.parentNode.remove();
         }, false);
@@ -42,13 +45,6 @@ class item {
 
 }
 
-add.addEventListener('click', check);
-window.addEventListener('keydown', (e) => {
-    if (e.which == 13) {
-        check();
-    }
-})
-
 function check() {
     if (inputValue.value != "") {
         new item(inputValue.value);
@@ -56,5 +52,17 @@ function check() {
     }
 }
 
-new item("Go shopping");
-new item("Drink coffee");
+function main (){
+    
+    add.addEventListener('click', check);
+    window.addEventListener('keydown', (e) => {
+        if (e.which == 13) {
+            check();
+        }
+    })
+
+    new item("Go shopping");
+    new item("Drink coffee");
+}
+
+main()

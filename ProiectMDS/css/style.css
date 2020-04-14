@@ -35,6 +35,7 @@ body {
     position: relative;
     width: 80%;
     min-height: 60px;
+    min-width: 200px;
     border-radius: 10px;
     margin: auto;
     margin-top: 5px;
@@ -42,8 +43,8 @@ body {
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
-    padding-left: 35px;
-    padding-right: 80px;
+    padding-left: 45px;
+    padding-right: 130px;
     background-color: whitesmoke;
 }
 
@@ -72,7 +73,8 @@ body {
 }
 
 /* pentru butonul de check */
-.unchecked, .fa-check-circle, .fa-dot-circle{
+
+.unchecked, .fa-check-circle, .fa-dot-circle {
     display: inline-block;
     left: 5px;
     color: rgb(66, 66, 66);
@@ -103,6 +105,36 @@ body {
     font-size: 20px;
     border: none;
     background-color: whitesmoke;
+    
+}
+
+.save-edit {
+    display: inline-block;
+    position: absolute;
+    right: 50px;
+    color: blue;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 20px;
+    border: none;
+    background-color:  whitesmoke;
+    width:22px;
+}
+
+.fa-star {
+    display: inline-block;
+    position: absolute;
+    right: 90px;
+    color: gray;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 20px;
+    border: none;
+    background-color: whitesmoke;
+}
+
+.fas {
+    color: #008B8B;
 }
 
 .add-todo {
@@ -137,7 +169,6 @@ button.createtodo {
 }
 
 ::placeholder {
-    /* Most modern browsers support this now. */
     color: gray;
 }
 
@@ -145,3 +176,31 @@ button.createtodo {
     color: gray;
     opacity: 85%;
 }
+
+[contenteditable="true"] {
+    outline: 1px solid;
+  }
+
+/*textarea {
+    background-color: transparent;
+    
+    padding-left: 10px;
+    padding-right: 10px;
+    margin: 0px;
+    width: 100%;
+    border: none;
+    word-break: break-word;
+    outline: none;
+    box-shadow: none;
+    overflow: auto;
+    resize: none;
+}
+*/
+
+button.save-edit, button.edit-task
+{
+    padding: 0;
+    margin: 0;
+}
+
+

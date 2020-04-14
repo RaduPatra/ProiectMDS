@@ -22,27 +22,31 @@ class item {
         
         check.classList.add("far", "fa-circle", "unchecked");
         check.addEventListener('click', function(e) {
+            var defaultstyle=input.style;
 			if (e.currentTarget.classList.contains("unchecked")){
 				e.currentTarget.classList.remove("fa-circle", "unchecked")
-				e.currentTarget.classList.add("fa-check-circle")
+                e.currentTarget.classList.add("fa-check-circle")
+                input.style.cssText= "text-decoration:line-through ; color:gray; opacity: 60%";
 			}
 			else{
 				e.currentTarget.classList.remove("fa-check-circle")
-				e.currentTarget.classList.add("fa-circle", "unchecked"	)
+                e.currentTarget.classList.add("fa-circle", "unchecked"	)
+                input.style.removeProperty("text-decoration", "line-through");      
+                input.style= defaultstyle;         
 			}
 		}, false);
-        
         remove.classList.add("fal", "fa-trash-alt", "delete-task");
         remove.addEventListener('click', function (e) {
             e.currentTarget.parentNode.remove();
         }, false);
 
-
+  
         tasks.appendChild(task);
         task.appendChild(check);
         task.appendChild(input);
         task.appendChild(remove);
         task.appendChild(editbtn);
+        document.getElementById('scroll').scrollTop = task.offsetHeight + task.offsetTop;
     }
     remove()
     {

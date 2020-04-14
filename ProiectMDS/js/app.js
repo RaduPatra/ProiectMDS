@@ -31,36 +31,52 @@ class item {
         input.textContent = name;
         input.classList.add('text');
 	
-	//pt dot la hover    
-	check.addEventListener('mouseover', function(e){
-        if (!e.currentTarget.classList.contains("fa-check-circle")){
-            e.currentTarget.classList.remove("fa-circle", "unchecked")
-            e.currentTarget.classList.add("fa-dot-circle")
-        }
-    }, false); 
+        check = this.checkButton(input, check);
+        remove = this.removeIcon(remove);
 
-        check.addEventListener("mouseout", function(e){
-                if (!e.currentTarget.classList.contains("fa-check-circle")){
-            e.currentTarget.classList.remove("fa-dot-circle")
-            e.currentTarget.classList.add("fa-circle", "unchecked")
-        }
-        }, false);
-        
-        check.classList.add("far", "fa-circle", "unchecked");
-        check.addEventListener('click', function(e) {
-            var defaultstyle=input.style;
-			if (e.currentTarget.classList.contains("fa-dot-circle")){
-				e.currentTarget.classList.remove("fa-dot-circle")
-                e.currentTarget.classList.add("fa-check-circle")
-                input.style.cssText= "text-decoration:line-through ; color:gray; opacity: 60%";
-			}
-			else{
-				e.currentTarget.classList.remove("fa-check-circle")
-                e.currentTarget.classList.add("fa-circle", "unchecked"	)
-                input.style.removeProperty("text-decoration", "line-through");      
-                input.style= defaultstyle;         
-			}
-		}, false);
+        tasks.appendChild(task);
+        task.appendChild(check);
+        task.appendChild(input);
+        task.appendChild(remove);
+        task.appendChild(editbtn);
+        document.getElementById('scroll').scrollTop = task.offsetHeight + task.offsetTop;
+    }
+
+    checkButton(input, check){
+        check.addEventListener('mouseover', function(e){
+            if (!e.currentTarget.classList.contains("fa-check-circle")){
+                e.currentTarget.classList.remove("fa-circle", "unchecked")
+                e.currentTarget.classList.add("fa-dot-circle")
+            }
+        }, false); 
+    
+            check.addEventListener("mouseout", function(e){
+                    if (!e.currentTarget.classList.contains("fa-check-circle")){
+                e.currentTarget.classList.remove("fa-dot-circle")
+                e.currentTarget.classList.add("fa-circle", "unchecked")
+            }
+            }, false);
+            
+            check.classList.add("far", "fa-circle", "unchecked");
+            check.addEventListener('click', function(e) {
+                var defaultstyle=input.style;
+                if (e.currentTarget.classList.contains("fa-dot-circle")){
+                    e.currentTarget.classList.remove("fa-dot-circle")
+                    e.currentTarget.classList.add("fa-check-circle")
+                    input.style.cssText= "text-decoration:line-through ; color:gray; opacity: 60%";
+                }
+                else{
+                    e.currentTarget.classList.remove("fa-check-circle")
+                    e.currentTarget.classList.add("fa-circle", "unchecked"	)
+                    input.style.removeProperty("text-decoration", "line-through");      
+                    input.style= defaultstyle;         
+                }
+            }, false);
+
+        return check;
+    }
+
+    removeIcon(remove){
         remove.classList.add("fal", "fa-trash-alt", "delete-task");
         remove.addEventListener('click', function (e) {
             e.currentTarget.parentNode.remove();
@@ -71,17 +87,7 @@ class item {
             window.localStorage.setItem("IND", JSON.stringify(ind));
         }, false);
 
-  
-        tasks.appendChild(task);
-        task.appendChild(check);
-        task.appendChild(input);
-        task.appendChild(remove);
-        task.appendChild(editbtn);
-        document.getElementById('scroll').scrollTop = task.offsetHeight + task.offsetTop;
-    }
-    remove()
-    {
-        
+        return remove;
     }
 
 }

@@ -64,7 +64,6 @@ class item {
         remove.classList.add("fal", "fa-trash-alt", "delete-task");
         remove.addEventListener('click', function (e) {
             e.currentTarget.parentNode.remove();
-            e.currentTarget.parentNode.remove();
             let index = todos.indexOf(name);
             todos.splice(index, 1);
             ind -= 1;

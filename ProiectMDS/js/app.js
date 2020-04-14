@@ -19,6 +19,17 @@ class item {
         task.classList.add('task');
         input.textContent = name;
         input.classList.add('text');
+	
+	//pt dot la hover    
+	check.addEventListener('mouseover', function(e){
+            e.currentTarget.classList.remove("fa-circle", "unchecked")
+            e.currentTarget.classList.add("fa-dot-circle")
+        }, false); 
+
+        check.addEventListener("mouseout", function(e){
+            e.currentTarget.classList.remove("fa-dot-circle")
+            e.currentTarget.classList.add("fa-circle", "unchecked")
+        }, false);
         
         check.classList.add("far", "fa-circle", "unchecked");
         check.addEventListener('click', function(e) {

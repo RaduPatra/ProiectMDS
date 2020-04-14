@@ -72,7 +72,7 @@ body {
 }
 
 /* pentru butonul de check */
-.unchecked, .fa-check-circle {
+.unchecked, .fa-check-circle, .fa-dot-circle{
     display: inline-block;
     left: 5px;
     color: rgb(66, 66, 66);

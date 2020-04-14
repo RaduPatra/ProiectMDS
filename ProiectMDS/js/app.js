@@ -2,19 +2,17 @@ const tasks = document.querySelector('.tasks');
 var inputValue = document.querySelector('.todoinput');
 const add = document.querySelector('.createtodo');
 var count = window.localStorage.getItem("ind")
+var todos = window.localStorage.getItem("todos")
 
-if (count == undefined) {
-    count = 0;
+function searchObj(nume){
+    for (i = 0; i < todos.length; i++) {
+        console.log(todos[i])
+        if (todos[i].name == nume || todos[i].name === nume) {
+            return i;
+        }
+    }
+    return -1;
 }
-
-
-if (window.localStorage.getItem("todos") == undefined) {
-    var todos = [];
-    window.localStorage.setItem("todos", JSON.stringify(todos));
-}
-
-var todosEX = window.localStorage.getItem("todos");
-var todos = JSON.parse(todosEX);
 
 class item {
     constructor(name, f1 = 0, f2 = 0) {
@@ -24,6 +22,9 @@ class item {
         this.star_flag = f2;
         this.prio = 99;
     }
+
+    getName(){return this.nume};
+
     createItem(name, f1, f2) {
         var task = document.createElement('div');
         var check = document.createElement('i');
@@ -34,7 +35,7 @@ class item {
 
         //momentan prajeala mahoarca
         let d = new Date();
-        console.log(d)
+        //console.log(d)
 
 
         //se termina aici
@@ -46,6 +47,8 @@ class item {
         input.textContent = name;
         input.classList.add('text');
         input.contentEditable = "false";
+
+        console.log(name)
 
         check = this.checkIcon(check, input, this, f1);
         remove = this.removeIcon(remove, name);
@@ -61,9 +64,12 @@ class item {
 
     }
 
+   //setFlag(flag){this.flag = flag;}
+
     checkIcon(check, input, obj, flag) {
         if (flag == 1) {
-            check.classList.add("fa-check-circle")
+            check.classList.add("far", "fa-check-circle")
+            input.style.cssText = "text-decoration:line-through ; color:gray; opacity: 60%";
         }
         else {
             check.classList.add("far", "fa-circle", "unchecked");
@@ -91,9 +97,11 @@ class item {
                 input.style.cssText = "text-decoration:line-through ; color:gray; opacity: 60%";
                 obj.check_flag = 1;
                 //local storage
-                let ind = todos.indexOf(obj.name);
-                todos[ind] = obj;
+                let ind = searchObj(obj.name) 
+                todos[ind] = obj
+
                 window.localStorage.setItem("todos", JSON.stringify(todos));
+                console.log("S a bifat steluta pentru itemul " + todos[i].name + " " + todos[i].star_flag)
             }
             else {
                 //nu da check
@@ -103,9 +111,11 @@ class item {
                 input.style = defaultstyle;
                 obj.check_flag = 0;
                 //local storage
-                let ind = todos.indexOf(obj.name);
-                todos[ind] = obj;
+                let ind = searchObj(obj.name) 
+                todos[ind] = obj
+
                 window.localStorage.setItem("todos", JSON.stringify(todos));
+                console.log("S a bifat steluta pentru itemul " + todos[i].name + " " + todos[i].star_flag)
             }
         }, false);
 
@@ -172,29 +182,28 @@ class item {
         else {
             star.classList.add("far", "fa-star");
         }
-
         star.addEventListener("click", function (e) {
             if (e.currentTarget.classList.contains("far")) {//daca bifeaza steluta
                 e.currentTarget.classList.remove("far")
                 e.currentTarget.classList.add("fas")
-                obj.star_flag = 1;
                 //modifica local storage
-                let ind = todos.indexOf(obj.name);
-                todos[ind] = obj;
+                let ind = searchObj(obj.name) 
+                obj.star_flag = 1;
+                todos[ind] = obj
+
                 window.localStorage.setItem("todos", JSON.stringify(todos));
-                console.log("S a bifat steluta pentru itemul " + obj.name + " " + obj.star_flag)
+                console.log("S a bifat steluta pentru itemul " + todos[i].name + " " + todos[i].star_flag)
             }
             else {//daca se debiefaza steluta
-                e.currentTarget.classList.add("far")
                 e.currentTarget.classList.remove("fas")
-                obj.star_flag = 0;
-                console.log(obj.star_flag)
+                e.currentTarget.classList.add("far")
                 //modifica local storage
-                let ind = todos.indexOf(obj.name);
-                todos[ind] = obj;
-                console.log(todos[ind])
+                let ind = searchObj(obj.name) 
+                obj.star_flag = 0;
+                todos[ind] = obj
+
                 window.localStorage.setItem("todos", JSON.stringify(todos));
-                console.log("S a bifat steluta pentru itemul " + obj.name + " " + obj.star_flag)
+                console.log("S a bifat steluta pentru itemul " + todos[i].name + " " + todos[i].star_flag)
             }
         })
         return star;
@@ -227,7 +236,25 @@ function compare(a, b) {
     return comparison;
 }
 
+function localStoragefun(){
+    //window.localStorage.clear()
+
+    if (count == null) {
+        count = 0;
+        window.localStorage.setItem("ind", count)
+    }
+    
+    if (todos == null) {
+        todos = [];
+        window.localStorage.setItem("todos", JSON.stringify(todos));
+    }
+    todos = JSON.parse(todos);
+    
+}
+
 function main() {
+    localStoragefun()
+
     add.addEventListener('click', check);
     window.addEventListener('keydown', (e) => {
         if (e.which == 13) {
@@ -237,10 +264,9 @@ function main() {
 
     for (let i = 0; i < todos.length; i++) {
         new item(todos[i].name, todos[i].check_flag, todos[i].star_flag);
+        console.log(todos[i]);
         console.log("Check " + i + ": " + todos[i].check_flag);
         console.log("Star " + i + ": " + todos[i].star_flag);
-        console.log(todos[i].name);
-        // todos[i].reAddStars();  
         //console.log(todos[i].prio + " ");
     }
 

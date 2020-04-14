@@ -2,6 +2,17 @@ const tasks = document.querySelector('.tasks');
 var inputValue = document.querySelector('.todoinput');
 const add = document.querySelector('.createtodo');
 
+if(window.localStorage.getItem("todos") == null){
+    var todos = [];
+    var ind = 0;
+    window.localStorage.setItem("todos", JSON.stringify(todos));
+    window.localStorage.setItem("IND", JSON.stringify(ind));
+}
+
+var todosEX = window.localStorage.getItem("todos");
+var todos = JSON.parse(todosEX);
+var ind = 0
+
 class item {
     constructor(name) {
         this.createItem(name);
@@ -53,6 +64,12 @@ class item {
         remove.classList.add("fal", "fa-trash-alt", "delete-task");
         remove.addEventListener('click', function (e) {
             e.currentTarget.parentNode.remove();
+            e.currentTarget.parentNode.remove();
+            let index = todos.indexOf(name);
+            todos.splice(index, 1);
+            ind -= 1;
+            window.localStorage.setItem("todos", JSON.stringify(todos));
+            window.localStorage.setItem("IND", JSON.stringify(ind));
         }, false);
 
   
@@ -73,6 +90,10 @@ class item {
 function check() {
     if (inputValue.value != "") {
         new item(inputValue.value);
+        todos.push(inputValue.value);
+        window.localStorage.setItem("todos", JSON.stringify(todos));
+        ind += 1;
+        window.localStorage.setItem("IND", JSON.stringify(ind));
         inputValue.value = "";
     }
 }
@@ -85,9 +106,10 @@ function main (){
             check();
         }
     })
-
-    new item("Go shopping");
-    new item("Drink coffee");
+    
+for (var v = 0 ; v < todos.length ; v++){
+    new item(todos[v]);
+}
 }
 
 main()

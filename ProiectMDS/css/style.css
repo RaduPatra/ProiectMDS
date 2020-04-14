@@ -1,5 +1,9 @@
 html {
-    font-size: 16px;
+    font-size: 100%;
+}
+
+::-webkit-scrollbar {
+    display: none;
 }
 
 body {
@@ -11,8 +15,20 @@ body {
 }
 
 .list-title {
-    text-align: center;
+    position: relative;
+    text-align: left;
+    top: 20px;
+    left: 10%;
     filter: invert(1);
+}
+
+.tasks {
+    position: absolute;
+    top: 115px;
+    width: 100%;
+    bottom: 90px;
+    overflow: auto;
+    margin: 0 auto;
 }
 
 .task {
@@ -21,9 +37,10 @@ body {
     min-height: 60px;
     border-radius: 10px;
     margin: auto;
-    margin-bottom: 10px;
+    margin-top: 5px;
     display: flex;
-    flex-direction: column;flex-wrap: wrap;
+    flex-direction: column;
+    flex-wrap: wrap;
     justify-content: center;
     padding-left: 35px;
     padding-right: 80px;
@@ -38,10 +55,24 @@ body {
     margin: 0;
     word-break: break-word;
 }
-   
+
+.todo-header {
+    position: fixed;
+    height: 100px;
+    top: 0px;
+    width: 100%;
+}
+
+.todo-footer {
+    position: fixed;
+    height: 90px;
+    bottom: 0px;
+    width: 100%;
+    display: flex;
+}
 
 /* pentru butonul de check */
-.unchecked, .fa-check-circle{
+.unchecked, .fa-check-circle {
     display: inline-block;
     left: 5px;
     color: rgb(66, 66, 66);
@@ -76,15 +107,13 @@ body {
 
 .add-todo {
     position: relative;
-    display: flex;
     border-radius: 5px;
     background-color: white;
     margin: auto;
-    margin-top: 20px;
     width: 80%;
     background-color: rgba(0, 0, 0, 0.5);
     height: 60px;
-
+    display: flex;
 }
 
 .todoinput {
@@ -112,7 +141,7 @@ button.createtodo {
     color: gray;
 }
 
-.task:hover{
-	color: gray;
-	opacity: 85%;
+.task:hover {
+    color: gray;
+    opacity: 85%;
 }

@@ -22,20 +22,24 @@ class item {
 	
 	//pt dot la hover    
 	check.addEventListener('mouseover', function(e){
+        if (!e.currentTarget.classList.contains("fa-check-circle")){
             e.currentTarget.classList.remove("fa-circle", "unchecked")
             e.currentTarget.classList.add("fa-dot-circle")
-        }, false); 
+        }
+    }, false); 
 
         check.addEventListener("mouseout", function(e){
+                if (!e.currentTarget.classList.contains("fa-check-circle")){
             e.currentTarget.classList.remove("fa-dot-circle")
             e.currentTarget.classList.add("fa-circle", "unchecked")
+        }
         }, false);
         
         check.classList.add("far", "fa-circle", "unchecked");
         check.addEventListener('click', function(e) {
             var defaultstyle=input.style;
-			if (e.currentTarget.classList.contains("unchecked")){
-				e.currentTarget.classList.remove("fa-circle", "unchecked")
+			if (e.currentTarget.classList.contains("fa-dot-circle")){
+				e.currentTarget.classList.remove("fa-dot-circle")
                 e.currentTarget.classList.add("fa-check-circle")
                 input.style.cssText= "text-decoration:line-through ; color:gray; opacity: 60%";
 			}

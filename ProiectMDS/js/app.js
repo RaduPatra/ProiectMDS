@@ -48,8 +48,6 @@ class item {
         input.classList.add('text');
         input.contentEditable = "false";
 
-        console.log(name)
-
         check = this.checkIcon(check, input, this, f1);
         remove = this.removeIcon(remove, name);
         editbtn = this.editTask(editbtn, name, input);
@@ -101,7 +99,6 @@ class item {
                 todos[ind] = obj
 
                 window.localStorage.setItem("todos", JSON.stringify(todos));
-                console.log("S a bifat steluta pentru itemul " + todos[i].name + " " + todos[i].star_flag)
             }
             else {
                 //nu da check
@@ -115,7 +112,6 @@ class item {
                 todos[ind] = obj
 
                 window.localStorage.setItem("todos", JSON.stringify(todos));
-                console.log("S a bifat steluta pentru itemul " + todos[i].name + " " + todos[i].star_flag)
             }
         }, false);
 
@@ -164,7 +160,7 @@ class item {
         remove.classList.add("fal", "fa-trash-alt", "delete-task");
         remove.addEventListener("click", function (e) {
             e.currentTarget.parentNode.remove();
-            let ind = todos.indexOf(name);
+            let ind = searchObj(name);
             todos.splice(ind, 1);
 
             count--;
@@ -192,7 +188,6 @@ class item {
                 todos[ind] = obj
 
                 window.localStorage.setItem("todos", JSON.stringify(todos));
-                console.log("S a bifat steluta pentru itemul " + todos[i].name + " " + todos[i].star_flag)
             }
             else {//daca se debiefaza steluta
                 e.currentTarget.classList.remove("fas")
@@ -203,7 +198,6 @@ class item {
                 todos[ind] = obj
 
                 window.localStorage.setItem("todos", JSON.stringify(todos));
-                console.log("S a bifat steluta pentru itemul " + todos[i].name + " " + todos[i].star_flag)
             }
         })
         return star;
@@ -264,10 +258,6 @@ function main() {
 
     for (let i = 0; i < todos.length; i++) {
         new item(todos[i].name, todos[i].check_flag, todos[i].star_flag);
-        console.log(todos[i]);
-        console.log("Check " + i + ": " + todos[i].check_flag);
-        console.log("Star " + i + ": " + todos[i].star_flag);
-        //console.log(todos[i].prio + " ");
     }
 
     console.log("Exista " + count + " task-uri.")

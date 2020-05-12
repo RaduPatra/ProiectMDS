@@ -279,9 +279,7 @@ function check() {
         
         count++;
         window.localStorage.setItem("ind", count);
-        
-        inputValue.value = "";
-
+    
         console.log("Exista " + count + " task-uri.")
     }
 }

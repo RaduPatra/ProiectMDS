@@ -162,11 +162,6 @@ class item {
                 e.currentTarget.classList.add("fa-check-circle")
                 input.style.cssText = "text-decoration:line-through ; color:gray; opacity: 60%";
                 obj.check_flag = 1;
-                //local storage
-                let ind = searchObj(obj.name) 
-                todos[ind] = obj
-
-                window.localStorage.setItem("todos", JSON.stringify(todos));
             }
             else {
                 //nu da check
@@ -175,12 +170,11 @@ class item {
                 input.style.removeProperty("text-decoration", "line-through");
                 input.style = defaultstyle;
                 obj.check_flag = 0;
-                //local storage
-                let ind = searchObj(obj.name) 
-                todos[ind] = obj
-
-                window.localStorage.setItem("todos", JSON.stringify(todos));
             }
+            //local storage    
+            let ind = searchObj(obj.name) 
+            todos[ind] = obj
+            window.localStorage.setItem("todos", JSON.stringify(todos));
         }, false);
 
         return check;
@@ -252,10 +246,7 @@ class item {
                 e.currentTarget.classList.add("fas")
                 //modifica local storage
                 let ind = searchObj(obj.name) 
-                obj.star_flag = 1;
-                todos[ind] = obj
-
-                window.localStorage.setItem("todos", JSON.stringify(todos));
+                obj.star_flag = 1;`
             }
             else {//daca se debiefaza steluta
                 e.currentTarget.classList.remove("fas")
@@ -263,10 +254,10 @@ class item {
                 //modifica local storage
                 let ind = searchObj(obj.name) 
                 obj.star_flag = 0;
-                todos[ind] = obj
-
-                window.localStorage.setItem("todos", JSON.stringify(todos));
-            }
+               
+            } 
+            todos[ind] = obj
+            window.localStorage.setItem("todos", JSON.stringify(todos));
         })
         return star;
     }

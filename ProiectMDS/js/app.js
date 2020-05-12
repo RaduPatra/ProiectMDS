@@ -156,6 +156,7 @@ class item {
         check.addEventListener('click', function (e) {
             //da check
             var defaultstyle = input.style;
+            let ind = -1;
             if (e.currentTarget.classList.contains("fa-dot-circle")) {
                 e.currentTarget.classList.remove("fa-dot-circle")
                 e.currentTarget.classList.add("fa-check-circle")

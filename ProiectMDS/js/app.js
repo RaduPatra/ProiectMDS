@@ -243,6 +243,7 @@ class item {
         
             if (e.currentTarget.classList.contains("far")) {//daca bifeaza steluta
                 e.currentTarget.classList.remove("far")
+                e.currentTarget.classList.add("fas")
                 
                 obj.star_flag = 1;
             }

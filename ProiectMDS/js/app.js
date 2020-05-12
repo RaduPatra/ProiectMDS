@@ -268,12 +268,13 @@ function check() {
             var x = new item(inputValue.value);
 
         inputValue.value = "";     
-        if (searchObj(x.name) != -1)
+        if (searchObj(x.name) != -1){
            alert("Exista deja acest To-Do!")
             let task = document.querySelector('.task');
             task.parentNode.removeChild(task)
             return -1
-        
+        }
+            
        todos.push(x);
        window.localStorage.setItem("todos", JSON.stringify(todos));
         

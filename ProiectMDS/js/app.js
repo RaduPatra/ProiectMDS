@@ -15,17 +15,18 @@ function searchObj(nume){
 }
 
 class item {
-    constructor(name, f1 = 0, f2 = 0) {
-        this.createItem(name, f1, f2);
+    constructor(name, f1 = 0, f2 = 0, f3 = 0) {
+        this.createItem(name, f1, f2, f3);
         this.name = name;
         this.check_flag = f1;
         this.star_flag = f2;
+        this.alarm_flag = f3;
         this.prio = 99;
     }
 
     getName(){return this.nume};
 
-    createItem(name, f1, f2) {
+    createItem(name, f1, f2, f3) {
         var task = document.createElement('div');
         var check = document.createElement('i');
         var input = document.createElement('p');
@@ -53,7 +54,7 @@ class item {
         remove = this.removeIcon(remove, name);
         editbtn = this.editTask(editbtn, name, input);
         star = this.starIcon(star, this, f2);
-        date = this.dateIcon(date, this);
+        date = this.dateIcon(date, this, f3);
 
 
         tasks.insertBefore(task, tasks.firstChild);
@@ -68,9 +69,65 @@ class item {
 
    //setFlag(flag){this.flag = flag;}
     
-    dateIcon(date, obj){
-        //citim data si ora de la user, iar daca ora trece punem o alarma, ceva
-    	date.classList.add("fas", "fa-stopwatch", "alarma")
+   
+    citireData(){
+    	var inp = document.createElement("INPUT");
+    	inp.setAttribute("type", "date")
+    	
+    	return inp
+    }
+
+    dateIcon(date, obj, flag){
+    	date.classList.add("alarma") //clasa pentru pozitionare
+
+    	if (flag == 0){
+    	//initial "fal fa-alarm-clock"
+    	date.classList.add("fal", "fa-alarm-clock")
+
+    	}
+    	else if (flag == 1){
+    	//daca alarma e pending fas fa-alarm-clock
+    	date.classList.add("fas", "fa-alarm-clock")
+
+    	}
+    	else if (flag == 2){
+    	//daca suna alarma far fa-alarm-exclamation
+    	date.classList.add("far", "fa-alarm-exclamation")
+    	}
+
+    	date.addEventListener('click', function (e) {
+    		if (date.classList.contains("fal")){
+    			//daca e inactiv
+    			var x = obj.citireData()//nu stiu cum sa implementez :))
+    			//afisam countdown de cat timp a ramas
+    			date.innerHTML = x;
+
+    			//schimbam icon-ul cu alarma activa
+    			date.classList.remove("fal")
+    			date.classList.add("fas")
+    		}
+
+    		else if (date.classList.contains("fas")){
+    			//daca e activ
+
+    			//verificam daca a trecut data introdusa
+       			let d = new Date();
+       			alert(d)
+    				
+    			date.classList.remove("fas")
+    			date.classList.add("far", "fa-alarm-exclamation")
+    			date.innerHTML = " 00:00"
+    		}
+
+    		else if (date.classList.contains("far")){
+    			//verificam daca a trecut alarma
+
+    			//la urmatorul click se reseteaza
+    			date.classList.remove("far", "fa-alarm-exclamation")
+    			date.classList.add("fal", "fa-alarm-clock")
+    			date.innerHTML = ""
+    		}
+    	}, 0)
 
     	return date
     }
@@ -268,7 +325,7 @@ function main() {
     })
 
     for (let i = 0; i < todos.length; i++) {
-        new item(todos[i].name, todos[i].check_flag, todos[i].star_flag);
+        new item(todos[i].name, todos[i].check_flag, todos[i].star_flag, 0);
     }
 
     console.log("Exista " + count + " task-uri.")

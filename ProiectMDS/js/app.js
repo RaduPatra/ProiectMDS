@@ -182,6 +182,7 @@ class item {
 
     editTask(editbtn, name, input) {
 
+        var ind;
         editbtn.addEventListener("click", function (e) {
 
             editbtn.addEventListener("keypress", function (event) {
@@ -191,6 +192,9 @@ class item {
             });
 
             if (input.contentEditable == "false") {
+                console.log(" click edit ");
+                ind = searchObj(name);
+                console.log(" name " + name + " ind " + ind + " tc " + input.textContent);
                 input.contentEditable = "true";
                 input.focus();
                 editbtn.classList.remove("edit-task", "fa", "fa-edit");
@@ -207,13 +211,16 @@ class item {
                 input.contentEditable = "false";
                 editbtn.classList.add("edit-task", "fa", "fa-edit");
                 editbtn.classList.remove("save-edit", "fal", "fa-clipboard-check");
-            }
+                console.log(" click save ");
+                console.log(" name2 " + name + " ind2 " + ind + " tc2 " + input.textContent);
 
-        /*let ind = todos.indexOf(name);//nu merge
-        todos[ind] = input.textContent;
-        window.localStorage.setItem("todos", JSON.stringify(todos));*/ 
+                todos[ind].name = input.textContent;
+                console.log(" todo ind " + todos[ind]);
+                window.localStorage.setItem("todos", JSON.stringify(todos));
+
+            }
         })
-        
+
         return editbtn;
     }
 
@@ -240,24 +247,26 @@ class item {
             star.classList.add("far", "fa-star");
         }
         star.addEventListener("click", function (e) {
-        
             if (e.currentTarget.classList.contains("far")) {//daca bifeaza steluta
                 e.currentTarget.classList.remove("far")
                 e.currentTarget.classList.add("fas")
-                
+                //modifica local storage
+                let ind = searchObj(obj.name)
                 obj.star_flag = 1;
+                todos[ind] = obj;
+                todos.sort(function (a, b) { return a.star_flag - b.star_flag });
+                window.localStorage.setItem("todos", JSON.stringify(todos));
             }
-            
             else {//daca se debiefaza steluta
                 e.currentTarget.classList.remove("fas")
                 e.currentTarget.classList.add("far")
-               
+                //modifica local storage
+                let ind = searchObj(obj.name)
                 obj.star_flag = 0;
-            } 
-             //modifica local storage
-            let ind = searchObj(obj.name) 
-            todos[ind] = obj
-            window.localStorage.setItem("todos", JSON.stringify(todos));
+                todos[ind] = obj;
+                todos.sort(function (a, b) { return a.star_flag - b.star_flag });
+                window.localStorage.setItem("todos", JSON.stringify(todos));
+            }
         })
         return star;
     }
@@ -285,18 +294,6 @@ function check() {
     }
 }
 
-function compare(a, b) {
-    const objA = a.star_flag;
-    const objB = b.star_flag;
-    let comparison = 0;
-    if (objA > objB) {
-        comparison = 1;
-    }
-    else if (objA < objB) {
-        comparison = -1;
-    }
-    return comparison;
-}
 
 function localStoragefun(){
     //window.localStorage.clear()

@@ -245,7 +245,7 @@ class item {
                 e.currentTarget.classList.add("fas")
                 //modifica local storage
                 let ind = searchObj(obj.name) 
-                obj.star_flag = 1;`
+                obj.star_flag = 1;
             }
             else {//daca se debiefaza steluta
                 e.currentTarget.classList.remove("fas")

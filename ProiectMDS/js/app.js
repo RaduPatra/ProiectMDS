@@ -3,11 +3,21 @@ var inputValue = document.querySelector('.todoinput');
 const add = document.querySelector('.createtodo');
 var count = window.localStorage.getItem("ind")
 var todos = window.localStorage.getItem("todos")
-
-function searchObj(nume){
+var cnt = 1;
+function searchObj(nume) {
     for (i = 0; i < todos.length; i++) {
-        console.log(todos[i])
+        //console.log(todos[i])
         if (todos[i].name == nume || todos[i].name === nume) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+function findLastStar() {
+    for (i = 0; i < todos.length; i++) {
+        //console.log(todos[i])
+        if (todos[i].star_flag == 1) {
             return i;
         }
     }
@@ -23,7 +33,7 @@ class item {
         this.alarm_flag = f3;
     }
 
-    getName(){return this.nume};
+    getName() { return this.nume };
 
     createItem(name, f1, f2, f3) {
         var task = document.createElement('div');
@@ -33,7 +43,7 @@ class item {
         var editbtn = document.createElement('button');
         var star = document.createElement("i");
         var date = document.createElement("i");
-            
+
         //momentan prajeala mahoarca
         let d = new Date();
         //console.log(d)
@@ -66,73 +76,73 @@ class item {
 
     }
 
-   //setFlag(flag){this.flag = flag;}
-    
-   
-    citireData(){
-    	var inp = document.createElement("INPUT");
-    	inp.setAttribute("type", "date")
-    	
-    	return inp
+    //setFlag(flag){this.flag = flag;}
+
+
+    citireData() {
+        var inp = document.createElement("INPUT");
+        inp.setAttribute("type", "date")
+
+        return inp
     }
 
-    dateIcon(date, obj, flag){
-    	date.classList.add("alarma") //clasa pentru pozitionare
+    dateIcon(date, obj, flag) {
+        date.classList.add("alarma") //clasa pentru pozitionare
 
-    	if (flag == 0){
-    	//initial "fal fa-alarm-clock"
-    	date.classList.add("fal", "fa-alarm-clock")
+        if (flag == 0) {
+            //initial "fal fa-alarm-clock"
+            date.classList.add("fal", "fa-alarm-clock")
 
-    	}
-    	else if (flag == 1){
-    	//daca alarma e pending fas fa-alarm-clock
-    	date.classList.add("fas", "fa-alarm-clock")
+        }
+        else if (flag == 1) {
+            //daca alarma e pending fas fa-alarm-clock
+            date.classList.add("fas", "fa-alarm-clock")
 
-    	}
-    	else if (flag == 2){
-    	//daca suna alarma far fa-alarm-exclamation
-    	date.classList.add("far", "fa-alarm-exclamation")
-    	}
+        }
+        else if (flag == 2) {
+            //daca suna alarma far fa-alarm-exclamation
+            date.classList.add("far", "fa-alarm-exclamation")
+        }
 
-    	date.addEventListener('click', function (e) {
-    		if (date.classList.contains("fal")){
-    			//daca e inactiv
-    			var x = obj.citireData()//nu stiu cum sa implementez :))
-    			//afisam countdown de cat timp a ramas
-    			date.innerHTML = x;
+        date.addEventListener('click', function (e) {
+            if (date.classList.contains("fal")) {
+                //daca e inactiv
+                var x = obj.citireData()//nu stiu cum sa implementez :))
+                //afisam countdown de cat timp a ramas
+                date.innerHTML = x;
 
-    			//schimbam icon-ul cu alarma activa
-    			date.classList.remove("fal")
-    			date.classList.add("fas")
-    		}
+                //schimbam icon-ul cu alarma activa
+                date.classList.remove("fal")
+                date.classList.add("fas")
+            }
 
-    		else if (date.classList.contains("fas")){
-    			//daca e activ
+            else if (date.classList.contains("fas")) {
+                //daca e activ
 
-    			//verificam daca a trecut data introdusa
-       			let d = new Date();
-       			alert(d)
-    				
-    			date.classList.remove("fas")
-    			date.classList.add("far", "fa-alarm-exclamation")
-    			date.innerHTML = " 00:00"
-    		}
+                //verificam daca a trecut data introdusa
+                let d = new Date();
+                alert(d)
 
-    		else if (date.classList.contains("far")){
-    			//verificam daca a trecut alarma
+                date.classList.remove("fas")
+                date.classList.add("far", "fa-alarm-exclamation")
+                date.innerHTML = " 00:00"
+            }
 
-    			//la urmatorul click se reseteaza
-    			date.classList.remove("far", "fa-alarm-exclamation")
-    			date.classList.add("fal", "fa-alarm-clock")
-    			date.innerHTML = ""
-    		}
-    	}, 0)
+            else if (date.classList.contains("far")) {
+                //verificam daca a trecut alarma
 
-    	return date
+                //la urmatorul click se reseteaza
+                date.classList.remove("far", "fa-alarm-exclamation")
+                date.classList.add("fal", "fa-alarm-clock")
+                date.innerHTML = ""
+            }
+        }, 0)
+
+        return date
     }
 
     checkIcon(check, input, obj, flag) {
-        if (flag == 1) {
+        if (flag >= 1) {
             check.classList.add("far", "fa-check-circle")
             input.style.cssText = "text-decoration:line-through ; color:gray; opacity: 60%";
         }
@@ -171,7 +181,7 @@ class item {
                 obj.check_flag = 0;
             }
             //local storage    
-            let ind = searchObj(obj.name) 
+            let ind = searchObj(obj.name)
             todos[ind] = obj
             window.localStorage.setItem("todos", JSON.stringify(todos));
         }, false);
@@ -201,9 +211,13 @@ class item {
                 editbtn.classList.add("save-edit", "fal", "fa-clipboard-check");
                 input.addEventListener("keypress", function (event) {
                     if (event.keyCode == 13) {
+                        input.contentEditable = "false"
                         editbtn.classList.add("edit-task", "fa", "fa-edit");
                         editbtn.classList.remove("save-edit", "fal", "fa-clipboard-check");
-                        input.contentEditable = "false"
+
+                        todos[ind].name = input.textContent;
+                        console.log(" todo ind " + todos[ind]);
+                        window.localStorage.setItem("todos", JSON.stringify(todos));
                     }
                 });
             }
@@ -247,25 +261,37 @@ class item {
             star.classList.add("far", "fa-star");
         }
         star.addEventListener("click", function (e) {
-            if (e.currentTarget.classList.contains("far")) {//daca bifeaza steluta
+            //daca bifeaza steluta
+            if (e.currentTarget.classList.contains("far")) {
                 e.currentTarget.classList.remove("far")
                 e.currentTarget.classList.add("fas")
+
                 //modifica local storage
                 let ind = searchObj(obj.name)
                 obj.star_flag = 1;
                 todos[ind] = obj;
-                todos.sort(function (a, b) { return a.star_flag - b.star_flag });
+
+                tasks.insertBefore(star.parentNode, tasks.firstChild);
+                todos.sort(function (a, b) { return a.star_flag - b.star_flag }); //sort dupa stelute
                 window.localStorage.setItem("todos", JSON.stringify(todos));
             }
-            else {//daca se debiefaza steluta
+            else {
+                //daca se debiefaza steluta
                 e.currentTarget.classList.remove("fas")
                 e.currentTarget.classList.add("far")
+
                 //modifica local storage
                 let ind = searchObj(obj.name)
                 obj.star_flag = 0;
                 todos[ind] = obj;
-                todos.sort(function (a, b) { return a.star_flag - b.star_flag });
+                todos.sort(function (a, b) { return a.star_flag - b.star_flag }); //sort dupa stelute
                 window.localStorage.setItem("todos", JSON.stringify(todos));
+
+
+                //mut taskul dupa ultima stea
+                var starind = findLastStar();
+                var elements = tasks.children;
+                tasks.insertBefore(star.parentNode, elements.item(elements.length-starind+1));
             }
         })
         return star;
@@ -273,42 +299,42 @@ class item {
 }
 
 function check() {
-        if (inputValue.value != "") {
-            var x = new item(inputValue.value);
+    if (inputValue.value != "") {
+        var x = new item(inputValue.value);
 
-        inputValue.value = "";     
-        if (searchObj(x.name) != -1){
-           alert("Exista deja acest To-Do!")
+        inputValue.value = "";
+        if (searchObj(x.name) != -1) {
+            alert("Exista deja acest To-Do!")
             let task = document.querySelector('.task');
             task.parentNode.removeChild(task)
             return -1
         }
-            
-       todos.push(x);
-       window.localStorage.setItem("todos", JSON.stringify(todos));
-        
+
+        todos.push(x);
+        window.localStorage.setItem("todos", JSON.stringify(todos));
+
         count++;
         window.localStorage.setItem("ind", count);
-    
+
         console.log("Exista " + count + " task-uri.")
     }
 }
 
 
-function localStoragefun(){
+function localStoragefun() {
     //window.localStorage.clear()
 
     if (count == null) {
         count = 0;
         window.localStorage.setItem("ind", count)
     }
-    
+
     if (todos == null) {
         todos = [];
         window.localStorage.setItem("todos", JSON.stringify(todos));
     }
     todos = JSON.parse(todos);
-    
+
 }
 
 function main() {

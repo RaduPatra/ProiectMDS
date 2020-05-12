@@ -143,7 +143,7 @@ class item {
                 });
             }
             else {
-                input.contentEditable = "false";
+                input.contentEditable = "false";#??? de ce
                 editbtn.classList.add("edit-task", "fa", "fa-edit");
                 editbtn.classList.remove("save-edit", "fal", "fa-clipboard-check");
             }

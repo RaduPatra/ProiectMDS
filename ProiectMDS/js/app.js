@@ -156,7 +156,6 @@ class item {
         check.addEventListener('click', function (e) {
             //da check
             var defaultstyle = input.style;
-            let ind = -1;
             if (e.currentTarget.classList.contains("fa-dot-circle")) {
                 e.currentTarget.classList.remove("fa-dot-circle")
                 e.currentTarget.classList.add("fa-check-circle")
@@ -241,22 +240,21 @@ class item {
             star.classList.add("far", "fa-star");
         }
         star.addEventListener("click", function (e) {
-            let ind = -1;
+        
             if (e.currentTarget.classList.contains("far")) {//daca bifeaza steluta
                 e.currentTarget.classList.remove("far")
-                e.currentTarget.classList.add("fas")
-                //modifica local storage
-                let ind = searchObj(obj.name) 
+                
                 obj.star_flag = 1;
             }
+            
             else {//daca se debiefaza steluta
                 e.currentTarget.classList.remove("fas")
                 e.currentTarget.classList.add("far")
-                //modifica local storage
-                let ind = searchObj(obj.name) 
-                obj.star_flag = 0;
                
+                obj.star_flag = 0;
             } 
+             //modifica local storage
+            let ind = searchObj(obj.name) 
             todos[ind] = obj
             window.localStorage.setItem("todos", JSON.stringify(todos));
         })

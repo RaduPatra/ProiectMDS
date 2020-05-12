@@ -86,7 +86,6 @@ body {
 
 .fa-alarm-clock, .fa-alarm-exclamation {
     display: inline-block;
-    left: 5px;
     color: rgb(66, 66, 66);
     position: absolute;
     text-align: center;
@@ -96,7 +95,7 @@ body {
 }
 
 .alarma{
-    left: 590px;
+    right: 120px;
 }
 
 .delete-task {

@@ -69,6 +69,7 @@ class item {
    //setFlag(flag){this.flag = flag;}
     
     dateIcon(date, obj){
+        //citim data si ora de la user, iar daca ora trece punem o alarma, ceva
     	date.classList.add("fas", "fa-stopwatch", "alarma")
 
     	return date

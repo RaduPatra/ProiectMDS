@@ -241,6 +241,7 @@ class item {
             star.classList.add("far", "fa-star");
         }
         star.addEventListener("click", function (e) {
+            let ind = -1;
             if (e.currentTarget.classList.contains("far")) {//daca bifeaza steluta
                 e.currentTarget.classList.remove("far")
                 e.currentTarget.classList.add("fas")

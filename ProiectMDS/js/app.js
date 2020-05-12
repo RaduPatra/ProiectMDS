@@ -32,7 +32,8 @@ class item {
         var remove = document.createElement('i');
         var editbtn = document.createElement('button');
         var star = document.createElement("i");
-
+        var date = document.createElement("i");
+            
         //momentan prajeala mahoarca
         let d = new Date();
         //console.log(d)
@@ -52,6 +53,8 @@ class item {
         remove = this.removeIcon(remove, name);
         editbtn = this.editTask(editbtn, name, input);
         star = this.starIcon(star, this, f2);
+        date = this.dateIcon(date, this);
+
 
         tasks.insertBefore(task, tasks.firstChild);
         task.appendChild(check);
@@ -59,10 +62,17 @@ class item {
         task.appendChild(star);
         task.appendChild(remove);
         task.appendChild(editbtn);
+        task.appendChild(date);
 
     }
 
    //setFlag(flag){this.flag = flag;}
+    
+    dateIcon(date, obj){
+    	date.classList.add("fas", "fa-stopwatch", "alarma")
+
+    	return date
+    }
 
     checkIcon(check, input, obj, flag) {
         if (flag == 1) {

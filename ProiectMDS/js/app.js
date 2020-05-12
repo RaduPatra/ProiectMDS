@@ -21,7 +21,6 @@ class item {
         this.check_flag = f1;
         this.star_flag = f2;
         this.alarm_flag = f3;
-        this.prio = 99;
     }
 
     getName(){return this.nume};

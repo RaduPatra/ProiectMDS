@@ -333,8 +333,9 @@ function localStoragefun() {
         todos = [];
         window.localStorage.setItem("todos", JSON.stringify(todos));
     }
+    else{
     todos = JSON.parse(todos);
-
+    }
 }
 
 function main() {

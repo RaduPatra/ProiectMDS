@@ -11,7 +11,6 @@ var todos = window.localStorage.getItem("todos");
 
 function searchObj(nume) {
     for (i = 0; i < todos.length; i++) {
-        //console.log(todos[i])
         if (todos[i].name == nume) {
             return i;
         }
@@ -158,9 +157,6 @@ class item {
         this.star_flag = f2;
         this.alarm_flag = f3;
         this.creation_date = f4;
-        console.log(displaymethod)
-        console.log("testing")
-        console.log(todos)
 
         if (displaymethod != 0) {
             var date = new Date();
@@ -169,7 +165,6 @@ class item {
         }
 
         this.createItem(name, f1, f2, f3);
-        console.log(timestamp)
     }
 
     createItem(name, f1, f2, f3) {
@@ -441,7 +436,6 @@ function addTodo() {
         }
 
         window.localStorage.setItem("todos", JSON.stringify(todos));
-        console.log("Exista " + todos.length + " task-uri.");
     }
 }
 
@@ -485,7 +479,6 @@ deleteAllBtn.addEventListener("mouseout", function (e) {
 deleteAllBtn.addEventListener("click", function (e) {
     localStorage.clear()
     todos = []
-    console.log("testingcdcdcdcdc")
     tasks.innerHTML = '';
 })
 
@@ -498,7 +491,6 @@ function main() {
             addTodo();
         }
     })
-    console.log("Exista " + todos.length + " task-uri.");
 }
 
 main()

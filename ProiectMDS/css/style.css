@@ -95,8 +95,17 @@ body {
     padding: 5px;
 }
 
-.alarma {
+.alarma{
     right: 120px;
+    position: absolute;
+    right: 125px;
+    top: 15px;
+}
+
+#inputMinute{
+    position: absolute;
+    right: 128px;
+    top: 15px;
 }
 
 .delete-task {

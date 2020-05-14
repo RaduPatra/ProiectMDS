@@ -107,7 +107,7 @@ body {
     top: 15px;
 }
 
-#countdown{
+.countdown{
     position: absolute;
     top: -5px;
     right: 150px;

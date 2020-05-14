@@ -48,12 +48,9 @@ function addTimeEvent(date){
             }
 
             else if (date.classList.contains("far")) {
-                //verificam daca a trecut alarma
-
-                //la urmatorul click se reseteaza
+                //expirat
                 date.classList.remove("far", "fa-alarm-exclamation")
                 date.classList.add("fal", "fa-alarm-clock")
-                date.innerHTML = ""
             }
         }, 0)
 

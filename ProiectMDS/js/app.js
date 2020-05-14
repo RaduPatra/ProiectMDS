@@ -29,8 +29,6 @@ function addTimeEvent(date){
         date.addEventListener('click', function (e) {
             if (date.classList.contains("fal")) {
                 //daca e inactiv
-                //afisam countdown de cat timp a ramas
-                //schimbam icon-ul cu alarma activa
                 date.classList.remove("fal")
                 date.classList.add("fas")
 

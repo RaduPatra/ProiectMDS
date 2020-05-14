@@ -237,6 +237,11 @@ button.save-edit, button.edit-task {
     display: inline-block;
 }
 
+.headerbtn:active{
+    opacity: 80%;
+}
+
+
 button.sortByDate, button.sortByFav {
     position: relative;
     left: 10%;

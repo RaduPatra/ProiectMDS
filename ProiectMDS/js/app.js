@@ -44,8 +44,8 @@ function addTimeEvent(date) {
 
         else if (date.classList.contains("fas")) {
             //daca e activ
-
-            document.getElementById("countdown").style.display = "none"
+            for (i of document.getElementsByClassName("countdown"))
+                i.style.display = "none"
 
             date.classList.remove("fas")
             date.classList.add("far", "fa-alarm-exclamation")
@@ -73,8 +73,8 @@ function getInputObject() {
     inputMinute.addEventListener('keydown', (e) => {
         if (e.which == 13) {
             if (e.currentTarget.value != "") {
-                var cnt = document.getElementById("countdown")
-                cnt.style.display = "inline"
+                var cnt = document.getElementsByClassName("countdown")
+                cnt[0].style.display = "inline"
                 e.currentTarget.style.display = "none"
 
                 var val = e.currentTarget.value
@@ -88,14 +88,14 @@ function getInputObject() {
                     let secs = parseInt(valoare % 60)
                     let string = mins + ":" + secs
 
-                    cnt.innerHTML = "<p>" + string + "</p>"
+                    cnt[0].innerHTML = "<p>" + string + "</p>"
 
-                    if (valoare < 0 || cnt.style.display == "none") {
+                    if (valoare < 0 || cnt[0].style.display == "none") {
                         clearInterval(x)
 
                         if (valoare < 0)
                             alert("Countdown over!")
-                        cnt.style.display = "none"
+                        cnt[0].style.display = "none"
                     }
                 }, 1000)
 
@@ -243,7 +243,7 @@ class item {
         div.appendChild(getInputObject())
 
         var x = document.createElement('p')
-        x.id = "countdown"
+        x.classList.add("countdown")
         div.appendChild(x)
 
         return div

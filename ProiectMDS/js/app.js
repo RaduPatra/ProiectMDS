@@ -24,6 +24,87 @@ function findLastStar() {
     return -1;
 }
 
+function addTimeEvent(date){
+
+        date.addEventListener('click', function (e) {
+            if (date.classList.contains("fal")) {
+                //daca e inactiv
+                //afisam countdown de cat timp a ramas
+                //schimbam icon-ul cu alarma activa
+                date.classList.remove("fal")
+                date.classList.add("fas")
+
+                document.getElementById("inputMinute").style.display = "inline"
+
+            }
+
+            else if (date.classList.contains("fas")) {
+                //daca e activ
+
+                var cnt = document.getElementById("countdown")
+                cnt.style.display = "none"//nu se opreste si intervalu
+
+                date.classList.remove("fas")
+                date.classList.add("far", "fa-alarm-exclamation")
+            }
+
+            else if (date.classList.contains("far")) {
+                //verificam daca a trecut alarma
+
+                //la urmatorul click se reseteaza
+                date.classList.remove("far", "fa-alarm-exclamation")
+                date.classList.add("fal", "fa-alarm-clock")
+                date.innerHTML = ""
+            }
+        }, 0)
+
+        return date
+}
+
+function getInputObject(){
+    var inputMinute = document.createElement("INPUT");
+    inputMinute.setAttribute("type", "number");
+    inputMinute.placeholder = "Introduceti nr minute"
+    inputMinute.id = "inputMinute"  
+    inputMinute.value = ""
+    inputMinute.style.display = "none"
+
+
+    inputMinute.addEventListener('keydown', (e) => {
+    if (e.which == 13) {
+        if (e.currentTarget.value != "") {
+            var cnt = document.getElementById("countdown")
+            cnt.style.display = "inline"
+            e.currentTarget.style.display = "none"
+
+            var val = e.currentTarget.value
+            var d = new Date()
+
+            var x = setInterval(function(){
+                var now = new Date()
+                var valoare = ((val * 60) - parseInt((now - d) / 1000))//numar secunde
+          
+                let mins = parseInt(valoare / 60)
+                let secs = parseInt(valoare % 60)
+                let string = mins + ":" + secs
+               
+                cnt.innerHTML = "<p>" + string + "</p>"
+
+            if (valoare < 0 || cnt.style.display == "none"){
+                clearInterval(x) 
+
+                if (valoare < 0)
+                    alert("Countdown over!")
+                cnt.style.display = "none"                }
+            }, 1000)
+                    
+        }
+    }
+    })
+    
+    return inputMinute
+}
+
 class item {
     constructor(name, f1 = 0, f2 = 0, f3 = 0) {
         this.createItem(name, f1, f2, f3);
@@ -44,13 +125,6 @@ class item {
         var star = document.createElement("i");
         var date = document.createElement("i");
 
-        //momentan prajeala mahoarca
-        let d = new Date();
-        //console.log(d)
-
-
-        //se termina aici
-
         //todo
         editbtn.classList.add("edit-task", "fa", "fa-edit");
 
@@ -63,8 +137,6 @@ class item {
         remove = this.removeIcon(remove, name);
         editbtn = this.editTask(editbtn, name, input);
         star = this.starIcon(star, this, f2);
-        date = this.dateIcon(date, this, f3);
-
 
         tasks.insertBefore(task, tasks.firstChild);
         task.appendChild(check);
@@ -74,21 +146,16 @@ class item {
         task.appendChild(editbtn);
         task.appendChild(date);
 
+	var divSecund = this.creareDivInput(f3);
+        task.appendChild(divSecund);
     }
 
-    //setFlag(flag){this.flag = flag;}
+creareDivInput(flag) {
+        var div = document.createElement("div")
+        var date = document.createElement("i")
+        date.classList.add("alarma")
 
-
-    citireData() {
-        var inp = document.createElement("INPUT");
-        inp.setAttribute("type", "date")
-
-        return inp
-    }
-
-    dateIcon(date, obj, flag) {
-        date.classList.add("alarma") //clasa pentru pozitionare
-
+        //de loat timpi din local storage
         if (flag == 0) {
             //initial "fal fa-alarm-clock"
             date.classList.add("fal", "fa-alarm-clock")
@@ -104,41 +171,15 @@ class item {
             date.classList.add("far", "fa-alarm-exclamation")
         }
 
-        date.addEventListener('click', function (e) {
-            if (date.classList.contains("fal")) {
-                //daca e inactiv
-                var x = obj.citireData()//nu stiu cum sa implementez :))
-                //afisam countdown de cat timp a ramas
-                date.innerHTML = x;
+        div.appendChild(addTimeEvent(date))
+        div.appendChild(getInputObject())
 
-                //schimbam icon-ul cu alarma activa
-                date.classList.remove("fal")
-                date.classList.add("fas")
-            }
+        var x = document.createElement('p')
+        x.style.display = "none"
+        x.id = "countdown"
+        div.appendChild(x)
 
-            else if (date.classList.contains("fas")) {
-                //daca e activ
-
-                //verificam daca a trecut data introdusa
-                let d = new Date();
-                alert(d)
-
-                date.classList.remove("fas")
-                date.classList.add("far", "fa-alarm-exclamation")
-                date.innerHTML = " 00:00"
-            }
-
-            else if (date.classList.contains("far")) {
-                //verificam daca a trecut alarma
-
-                //la urmatorul click se reseteaza
-                date.classList.remove("far", "fa-alarm-exclamation")
-                date.classList.add("fal", "fa-alarm-clock")
-                date.innerHTML = ""
-            }
-        }, 0)
-
-        return date
+        return div
     }
 
     checkIcon(check, input, obj, flag) {

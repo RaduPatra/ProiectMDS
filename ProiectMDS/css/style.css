@@ -73,6 +73,7 @@ body {
 }
 
 /* pentru butonul de check */
+
 .unchecked, .fa-check-circle, .fa-dot-circle {
     display: inline-block;
     left: 5px;
@@ -94,17 +95,8 @@ body {
     padding: 5px;
 }
 
-.alarma{
-    position: absolute;
-    right: 125px;
-    top: 15px;
-}
-
-#inputMinute{
-    position: absolute;
-    right: 128px;
-    top: 15px;
-    z-index: 9;
+.alarma {
+    right: 120px;
 }
 
 .delete-task {
@@ -127,7 +119,6 @@ body {
     font-size: 20px;
     border: none;
     background-color: whitesmoke;
-    
 }
 
 .save-edit {
@@ -139,8 +130,8 @@ body {
     vertical-align: middle;
     font-size: 20px;
     border: none;
-    background-color:  whitesmoke;
-    width:22px;
+    background-color: whitesmoke;
+    width: 22px;
 }
 
 .fa-star {
@@ -201,7 +192,7 @@ button.createtodo {
 
 [contenteditable="true"] {
     outline: 1px solid;
-  }
+}
 
 /*textarea {
     background-color: transparent;
@@ -219,24 +210,31 @@ button.createtodo {
 }
 */
 
-button.save-edit, button.edit-task
-{
+button.save-edit, button.edit-task {
     padding: 0;
     margin: 0;
 }
 
-button.sortByDate, button.sortByFav
-{
-    position: relative;
-    left:10%;
+.headerbtn {
     margin-top: 20px;
     border: 2px solid gray;
     color: gray;
     background-color: white;
     padding: 8px 20px;
     border-radius: 8px;
-    font-size: 20px;
+    font-size: 14px;
     font-weight: bold;
     overflow: hidden;
     display: inline-block;
+}
+
+button.sortByDate, button.sortByFav {
+    position: relative;
+    left: 10%;
+}
+
+button.deleteAll{
+    position: absolute;
+    padding: 12px 14px;
+    right:10%;
 }

@@ -338,8 +338,38 @@ function localStoragefun() {
     }
 }
 
+function deleteAllTasks(){
+	window.localStorage.clear()
+	var tasks1 = document.getElementsByClassName("task")
+
+	console.log(tasks1.length)
+	if (tasks1.length > 0){
+		for (var i = 0; i < tasks1.length; i++)
+			tasks1[i].parentNode.removeChild(tasks1[i])
+		for (i of tasks1)
+			i.parentNode.removeChild(i)
+	}
+									
+}
+
+function addDeleteAllTasksButton(){
+	var x = document.getElementsByClassName("todo-header")
+	
+	var button = document.createElement('p')
+	//button.classList.add("fas", "fa-star")
+	button.innerHTML = "<p>but</p>"
+
+	button.addEventListener("click", function (e){
+		for (i of [1, 2, 3])//ma jur ca nu stiu cum da nu merge fara asta
+			deleteAllTasks()
+	}, 1)
+
+	x[0].appendChild(button)
+}
+
 function main() {
     localStoragefun()
+    addDeleteAllTasksButton()
 
     add.addEventListener('click', check);
     window.addEventListener('keydown', (e) => {

@@ -41,8 +41,7 @@ function addTimeEvent(date){
             else if (date.classList.contains("fas")) {
                 //daca e activ
 
-                var cnt = document.getElementById("countdown")
-                cnt.style.display = "none"//nu se opreste si intervalu
+                document.getElementById("countdown").style.display = "none"
 
                 date.classList.remove("fas")
                 date.classList.add("far", "fa-alarm-exclamation")

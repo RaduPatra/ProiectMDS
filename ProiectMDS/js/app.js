@@ -30,7 +30,7 @@ function findLastStar() {
 }
 
 
-function addTimeEvent(date) {
+function addTimeEvent(date, i) {
 
     date.addEventListener('click', function (e) {
         if (date.classList.contains("fal")) {
@@ -38,7 +38,8 @@ function addTimeEvent(date) {
             date.classList.remove("fal")
             date.classList.add("fas")
 
-            document.getElementById("inputMinute").style.display = "inline"
+            document.getElementsByClassName("inputMinute")[i].style.display = "inline"
+
 
         }
 
@@ -61,20 +62,22 @@ function addTimeEvent(date) {
     return date
 }
 
-function getInputObject() {
+function getInputObject(i) {
     var inputMinute = document.createElement("INPUT");
     inputMinute.setAttribute("type", "number");
     inputMinute.placeholder = "Introduceti nr minute"
-    inputMinute.id = "inputMinute"
+    inputMinute.classList.add("inputMinute")
     inputMinute.value = ""
     inputMinute.style.display = "none"
+
+
 
 
     inputMinute.addEventListener('keydown', (e) => {
         if (e.which == 13) {
             if (e.currentTarget.value != "") {
                 var cnt = document.getElementsByClassName("countdown")
-                cnt[0].style.display = "inline"
+                cnt[i].style.display = "inline"
                 e.currentTarget.style.display = "none"
 
                 var val = e.currentTarget.value
@@ -88,14 +91,14 @@ function getInputObject() {
                     let secs = parseInt(valoare % 60)
                     let string = mins + ":" + secs
 
-                    cnt[0].innerHTML = "<p>" + string + "</p>"
+                    cnt[i].innerHTML = "<p>" + string + "</p>"
 
                     if (valoare < 0 || cnt[0].style.display == "none") {
                         clearInterval(x)
 
                         if (valoare < 0)
                             alert("Countdown over!")
-                        cnt[0].style.display = "none"
+                        cnt[i].style.display = "none"
                     }
                 }, 1000)
 
@@ -212,12 +215,12 @@ class item {
         task.appendChild(remove);
         task.appendChild(editbtn);
 
-        var divSecund = this.creareDivInput(f3);
+        var divSecund = this.creareDivInput(f3, name);
         task.appendChild(divSecund);
 
     }
 
-    creareDivInput(flag) {
+    creareDivInput(flag, name) {
         var div = document.createElement("div")
 
         var date = document.createElement("i")
@@ -239,8 +242,8 @@ class item {
             date.classList.add("far", "fa-alarm-exclamation");
         }
 
-        div.appendChild(addTimeEvent(date))
-        div.appendChild(getInputObject())
+        div.appendChild(addTimeEvent(date, searchObj(name)))
+        div.appendChild(getInputObject(searchObj(name)))
 
         var x = document.createElement('p')
         x.classList.add("countdown")

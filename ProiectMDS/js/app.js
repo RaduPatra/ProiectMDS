@@ -1,9 +1,14 @@
 const tasks = document.querySelector('.tasks');
 var inputValue = document.querySelector('.todoinput');
-const add = document.querySelector('.createtodo');
-var count = window.localStorage.getItem("ind")
-var todos = window.localStorage.getItem("todos")
-var cnt = 1;
+const addTodoBtn = document.querySelector('.createtodo');
+const sortByFav = document.querySelector('.sortByFav');
+const sortByDate = document.querySelector('.sortByDate');
+const deleteAllBtn = document.querySelector('.deleteAll');
+
+var displaymethod = window.localStorage.getItem("displaymethod");
+var todos = window.localStorage.getItem("todos");
+
+
 function searchObj(nume) {
     for (i = 0; i < todos.length; i++) {
         //console.log(todos[i])
@@ -14,101 +19,155 @@ function searchObj(nume) {
     return -1;
 }
 
+//tasks trb sa fie sortate descr dupa nr de stele
 function findLastStar() {
     for (i = 0; i < todos.length; i++) {
-        //console.log(todos[i])
-        if (todos[i].star_flag == 1) {
+        if (todos[i].star_flag == 0) {
             return i;
         }
     }
-    return -1;
+    return todos.length;
 }
 
-function addTimeEvent(date){
+/*
+function addTimeEvent(date) {
 
-        date.addEventListener('click', function (e) {
-            if (date.classList.contains("fal")) {
-                //daca e inactiv
-                date.classList.remove("fal")
-                date.classList.add("fas")
+    date.addEventListener('click', function (e) {
+        if (date.classList.contains("fal")) {
+            //daca e inactiv
+            date.classList.remove("fal")
+            date.classList.add("fas")
 
-                document.getElementById("inputMinute").style.display = "inline"
+            document.getElementById("inputMinute").style.display = "inline"
 
-            }
+        }
 
-            else if (date.classList.contains("fas")) {
-                //daca e activ
+        else if (date.classList.contains("fas")) {
+            //daca e activ
 
-                document.getElementById("countdown").style.display = "none"
+            document.getElementById("countdown").style.display = "none"
 
-                date.classList.remove("fas")
-                date.classList.add("far", "fa-alarm-exclamation")
-            }
+            date.classList.remove("fas")
+            date.classList.add("far", "fa-alarm-exclamation")
+        }
 
-            else if (date.classList.contains("far")) {
-                //expirat
-                date.classList.remove("far", "fa-alarm-exclamation")
-                date.classList.add("fal", "fa-alarm-clock")
-            }
-        }, 0)
+        else if (date.classList.contains("far")) {
+            //expirat
+            date.classList.remove("far", "fa-alarm-exclamation")
+            date.classList.add("fal", "fa-alarm-clock")
+        }
+    }, 0)
 
-        return date
+    return date
 }
 
-function getInputObject(){
+function getInputObject() {
     var inputMinute = document.createElement("INPUT");
     inputMinute.setAttribute("type", "number");
     inputMinute.placeholder = "Introduceti nr minute"
-    inputMinute.id = "inputMinute"  
+    inputMinute.id = "inputMinute"
     inputMinute.value = ""
     inputMinute.style.display = "none"
 
 
     inputMinute.addEventListener('keydown', (e) => {
-    if (e.which == 13) {
-        if (e.currentTarget.value != "") {
-            var cnt = document.getElementById("countdown")
-            cnt.style.display = "inline"
-            e.currentTarget.style.display = "none"
+        if (e.which == 13) {
+            if (e.currentTarget.value != "") {
+                var cnt = document.getElementById("countdown")
+                cnt.style.display = "inline"
+                e.currentTarget.style.display = "none"
 
-            var val = e.currentTarget.value
-            var d = new Date()
+                var val = e.currentTarget.value
+                var d = new Date()
 
-            var x = setInterval(function(){
-                var now = new Date()
-                var valoare = ((val * 60) - parseInt((now - d) / 1000))//numar secunde
-          
-                let mins = parseInt(valoare / 60)
-                let secs = parseInt(valoare % 60)
-                let string = mins + ":" + secs
-               
-                cnt.innerHTML = "<p>" + string + "</p>"
+                var x = setInterval(function () {
+                    var now = new Date()
+                    var valoare = ((val * 60) - parseInt((now - d) / 1000))//numar secunde
 
-            if (valoare < 0 || cnt.style.display == "none"){
-                clearInterval(x) 
+                    let mins = parseInt(valoare / 60)
+                    let secs = parseInt(valoare % 60)
+                    let string = mins + ":" + secs
 
-                if (valoare < 0)
-                    alert("Countdown over!")
-                cnt.style.display = "none"                }
-            }, 1000)
-                    
+                    cnt.innerHTML = "<p>" + string + "</p>"
+
+                    if (valoare < 0 || cnt.style.display == "none") {
+                        clearInterval(x)
+
+                        if (valoare < 0)
+                            alert("Countdown over!")
+                        cnt.style.display = "none"
+                    }
+                }, 1000)
+
+            }
         }
-    }
     })
-    
+
     return inputMinute
-}
+}*/
+
+sortByFav.addEventListener('click', e => {
+    //sory by stars, update storage
+    todos.sort(function (a, b) { return b.star_flag - a.star_flag; });
+    window.localStorage.setItem("todos", JSON.stringify(todos));
+
+    //update display method
+    displaymethod = 1;
+    displayMethodAux = displaymethod;
+    window.localStorage.setItem("displaymethod", displaymethod);
+
+    //remove current tasks
+    tasks.innerHTML = '';
+
+    //add sorted tasks
+    displaymethod = 0;
+    for (let i = 0; i < todos.length; i++) {
+        new item(todos[i].name, todos[i].check_flag, todos[i].star_flag, 0, todos[i].creation_date);
+    }
+    displaymethod = displayMethodAux;
+})
+
+sortByDate.addEventListener('click', e => {
+    //sory by time, update storage
+    todos.sort(function (a, b) { return b.creation_date - a.creation_date; });
+    window.localStorage.setItem("todos", JSON.stringify(todos));
+
+    //update display method
+    displaymethod = 2;
+    displayMethodAux = displaymethod;
+    window.localStorage.setItem("displaymethod", displaymethod);
+
+    //remove current tasks
+    tasks.innerHTML = '';
+
+    //add sorted tasks
+    displaymethod = 0;
+    for (let i = 0; i < todos.length; i++) {
+        new item(todos[i].name, todos[i].check_flag, todos[i].star_flag, 0, todos[i].creation_date);
+    }
+    displaymethod = displayMethodAux;
+})
 
 class item {
-    constructor(name, f1 = 0, f2 = 0, f3 = 0) {
-        this.createItem(name, f1, f2, f3);
+    constructor(name, f1 = 0, f2 = 0, f3 = 0, f4 = 0) {
         this.name = name;
         this.check_flag = f1;
         this.star_flag = f2;
         this.alarm_flag = f3;
-    }
+        this.creation_date = f4;
+        console.log(displaymethod)
+        console.log("testing")
+        console.log(todos)
 
-    getName() { return this.nume };
+        if (displaymethod != 0) {
+            var date = new Date();
+            var timestamp = date.getTime();
+            this.creation_date = timestamp;
+        }
+
+        this.createItem(name, f1, f2, f3);
+        console.log(timestamp)
+    }
 
     createItem(name, f1, f2, f3) {
         var task = document.createElement('div');
@@ -119,20 +178,35 @@ class item {
         var star = document.createElement("i");
         var date = document.createElement("i");
 
-        //todo
-        editbtn.classList.add("edit-task", "fa", "fa-edit");
 
+        editbtn.classList.add("edit-task", "fa", "fa-edit");
         task.classList.add('task');
         input.textContent = name;
         input.classList.add('text');
         input.contentEditable = "false";
 
+        //event listeners
         check = this.checkIcon(check, input, this, f1);
         remove = this.removeIcon(remove, name);
         editbtn = this.editTask(editbtn, name, input);
         star = this.starIcon(star, this, f2);
+        date = this.dateIcon(date, this, f3);
 
-        tasks.insertBefore(task, tasks.firstChild);
+        //load from storage insert mode
+        if (displaymethod == 0)
+            tasks.appendChild(task);
+
+        //sort by stars insert mode
+        if (displaymethod == 1) {
+            var lastStarInd = findLastStar();
+            tasks.insertBefore(task, tasks.children.item(lastStarInd))
+        }
+
+        //sort by date mdoe
+        if (displaymethod == 2) {
+            tasks.insertBefore(task, tasks.firstChild);
+        }
+
         task.appendChild(check);
         task.appendChild(input);
         task.appendChild(star);
@@ -140,45 +214,76 @@ class item {
         task.appendChild(editbtn);
         task.appendChild(date);
 
-	var divSecund = this.creareDivInput(f3);
-        task.appendChild(divSecund);
+        /*var divSecund = this.creareDivInput(f3);
+        task.appendChild(divSecund);*/
+
     }
 
-creareDivInput(flag) {
-        var div = document.createElement("div")
-        var date = document.createElement("i")
-        date.classList.add("alarma")
+    citireData() {
+        var inp = document.createElement("INPUT");
+        inp.setAttribute("type", "date");
 
-        //de loat timpi din local storage
+        return inp;
+    }
+
+    dateIcon(date, obj, flag) {
+        date.classList.add("alarma") //clasa pentru pozitionare
+
         if (flag == 0) {
             //initial "fal fa-alarm-clock"
-            date.classList.add("fal", "fa-alarm-clock")
+            date.classList.add("fal", "fa-alarm-clock");
 
         }
         else if (flag == 1) {
             //daca alarma e pending fas fa-alarm-clock
-            date.classList.add("fas", "fa-alarm-clock")
+            date.classList.add("fas", "fa-alarm-clock");
 
         }
         else if (flag == 2) {
             //daca suna alarma far fa-alarm-exclamation
-            date.classList.add("far", "fa-alarm-exclamation")
+            date.classList.add("far", "fa-alarm-exclamation");
         }
 
-        div.appendChild(addTimeEvent(date))
-        div.appendChild(getInputObject())
+        date.addEventListener('click', function (e) {
+            if (date.classList.contains("fal")) {
+                //daca e inactiv
+                var x = obj.citireData();//nu stiu cum sa implementez :))
+                //afisam countdown de cat timp a ramas
+                date.innerHTML = x;
 
-        var x = document.createElement('p')
-        x.style.display = "none"
-        x.id = "countdown"
-        div.appendChild(x)
+                //schimbam icon-ul cu alarma activa
+                date.classList.remove("fal");
+                date.classList.add("fas");
+            }
 
-        return div
+            else if (date.classList.contains("fas")) {
+                //daca e activ
+
+                //verificam daca a trecut data introdusa
+                let d = new Date();
+                alert(d);
+
+                date.classList.remove("fas");
+                date.classList.add("far", "fa-alarm-exclamation");
+                date.innerHTML = " 00:00";
+            }
+
+            else if (date.classList.contains("far")) {
+                //verificam daca a trecut alarma
+
+                //la urmatorul click se reseteaza
+                date.classList.remove("far", "fa-alarm-exclamation");
+                date.classList.add("fal", "fa-alarm-clock");
+                date.innerHTML = "";
+            }
+        }, 0)
+
+        return date
     }
 
     checkIcon(check, input, obj, flag) {
-        if (flag >= 1) {
-            check.classList.add("far", "fa-check-circle")
+        if (flag == 1) {
+            check.classList.add("far", "fa-check-circle");
             input.style.cssText = "text-decoration:line-through ; color:gray; opacity: 60%";
         }
         else {
@@ -186,15 +291,15 @@ creareDivInput(flag) {
         }
         check.addEventListener('mouseover', function (e) {
             if (!e.currentTarget.classList.contains("fa-check-circle")) {
-                e.currentTarget.classList.remove("fa-circle", "unchecked")
-                e.currentTarget.classList.add("fa-dot-circle")
+                e.currentTarget.classList.remove("fa-circle", "unchecked");
+                e.currentTarget.classList.add("fa-dot-circle");
             }
         }, false);
 
         check.addEventListener("mouseout", function (e) {
             if (!e.currentTarget.classList.contains("fa-check-circle")) {
-                e.currentTarget.classList.remove("fa-dot-circle")
-                e.currentTarget.classList.add("fa-circle", "unchecked")
+                e.currentTarget.classList.remove("fa-dot-circle");
+                e.currentTarget.classList.add("fa-circle", "unchecked");
             }
         }, false);
 
@@ -202,22 +307,22 @@ creareDivInput(flag) {
             //da check
             var defaultstyle = input.style;
             if (e.currentTarget.classList.contains("fa-dot-circle")) {
-                e.currentTarget.classList.remove("fa-dot-circle")
-                e.currentTarget.classList.add("fa-check-circle")
+                e.currentTarget.classList.remove("fa-dot-circle");
+                e.currentTarget.classList.add("fa-check-circle");
                 input.style.cssText = "text-decoration:line-through ; color:gray; opacity: 60%";
                 obj.check_flag = 1;
             }
             else {
                 //nu da check
-                e.currentTarget.classList.remove("fa-check-circle")
-                e.currentTarget.classList.add("fa-circle", "unchecked")
+                e.currentTarget.classList.remove("fa-check-circle");
+                e.currentTarget.classList.add("fa-circle", "unchecked");
                 input.style.removeProperty("text-decoration", "line-through");
                 input.style = defaultstyle;
                 obj.check_flag = 0;
             }
             //local storage    
-            let ind = searchObj(obj.name)
-            todos[ind] = obj
+            var ind = searchObj(obj.name);
+            todos[ind] = obj;
             window.localStorage.setItem("todos", JSON.stringify(todos));
         }, false);
 
@@ -227,23 +332,22 @@ creareDivInput(flag) {
 
     editTask(editbtn, name, input) {
 
-        var ind;
         editbtn.addEventListener("click", function (e) {
 
-            editbtn.addEventListener("keypress", function (event) {
+            /*editbtn.addEventListener("keypress", function (event) {
                 if (event.keyCode == 13) {
                     event.preventDefault();
                 }
-            });
+            });*/
+            var ind = searchObj(name);
 
             if (input.contentEditable == "false") {
-                console.log(" click edit ");
-                ind = searchObj(name);
-                console.log(" name " + name + " ind " + ind + " tc " + input.textContent);
                 input.contentEditable = "true";
                 input.focus();
                 editbtn.classList.remove("edit-task", "fa", "fa-edit");
                 editbtn.classList.add("save-edit", "fal", "fa-clipboard-check");
+
+                //save on enter
                 input.addEventListener("keypress", function (event) {
                     if (event.keyCode == 13) {
                         input.contentEditable = "false"
@@ -251,7 +355,6 @@ creareDivInput(flag) {
                         editbtn.classList.remove("save-edit", "fal", "fa-clipboard-check");
 
                         todos[ind].name = input.textContent;
-                        console.log(" todo ind " + todos[ind]);
                         window.localStorage.setItem("todos", JSON.stringify(todos));
                     }
                 });
@@ -260,13 +363,9 @@ creareDivInput(flag) {
                 input.contentEditable = "false";
                 editbtn.classList.add("edit-task", "fa", "fa-edit");
                 editbtn.classList.remove("save-edit", "fal", "fa-clipboard-check");
-                console.log(" click save ");
-                console.log(" name2 " + name + " ind2 " + ind + " tc2 " + input.textContent);
 
                 todos[ind].name = input.textContent;
-                console.log(" todo ind " + todos[ind]);
                 window.localStorage.setItem("todos", JSON.stringify(todos));
-
             }
         })
 
@@ -280,9 +379,7 @@ creareDivInput(flag) {
             let ind = searchObj(name);
             todos.splice(ind, 1);
 
-            count--;
             window.localStorage.setItem("todos", JSON.stringify(todos));
-            window.localStorage.setItem("ind", JSON.stringify(count));
         }, false);
 
         return remove;
@@ -295,6 +392,7 @@ creareDivInput(flag) {
         else {
             star.classList.add("far", "fa-star");
         }
+
         star.addEventListener("click", function (e) {
             //daca bifeaza steluta
             if (e.currentTarget.classList.contains("far")) {
@@ -306,128 +404,130 @@ creareDivInput(flag) {
                 obj.star_flag = 1;
                 todos[ind] = obj;
 
-                tasks.insertBefore(star.parentNode, tasks.firstChild);
-                todos.sort(function (a, b) { return a.star_flag - b.star_flag }); //sort dupa stelute
+
+                //daca sortez dupa stele
+                if (displaymethod == 1) {
+                    //insert la inceput in local storage
+                    todos.splice(0, 0, todos[ind])
+                    todos.splice(ind + 1, 1)
+                    tasks.insertBefore(star.parentNode, tasks.firstChild);//mut taskul la inceput cand bifez
+                }
                 window.localStorage.setItem("todos", JSON.stringify(todos));
             }
             else {
+                if (displaymethod == 1)
+                    var lastStarInd = findLastStar();
+
                 //daca se debiefaza steluta
                 e.currentTarget.classList.remove("fas")
                 e.currentTarget.classList.add("far")
 
                 //modifica local storage
-                let ind = searchObj(obj.name)
+                let ind = searchObj(obj.name);
                 obj.star_flag = 0;
                 todos[ind] = obj;
-                todos.sort(function (a, b) { return a.star_flag - b.star_flag }); //sort dupa stelute
+
+                //daca sortez dupa stele
+                if (displaymethod == 1) {
+                    //insert dupa ultima steluta in local storage
+                    todos.splice(lastStarInd, 0, todos[ind])
+                    todos.splice(ind, 1)
+                    tasks.insertBefore(star.parentNode, tasks.children.item(lastStarInd));//mut taskul dupa ultima stea cand debifez
+                }
                 window.localStorage.setItem("todos", JSON.stringify(todos));
-
-
-                //mut taskul dupa ultima stea
-                var starind = findLastStar();
-                var elements = tasks.children;
-                tasks.insertBefore(star.parentNode, elements.item(elements.length-starind+1));
             }
         })
         return star;
     }
 }
 
-function check() {
-    if (inputValue.value != "") {
-        var x = new item(inputValue.value);
+function addTodo() {
 
-        inputValue.value = "";
-        if (searchObj(x.name) != -1) {
-            alert("Exista deja acest To-Do!")
-            let task = document.querySelector('.task');
-            task.parentNode.removeChild(task)
-            return -1
+    if (inputValue.value != "") {
+
+        if (searchObj(inputValue.value) != -1) {
+            alert("Exista deja acest To-Do!");
+            return;
         }
 
-        todos.push(x);
+        var x = new item(inputValue.value);
+        inputValue.value = "";
+
+        //load from local storage
+        if (displaymethod == 0)
+            todos.push(x);
+
+        // add after last star in local storage
+        if (displaymethod == 1) {
+            var lastStarInd = findLastStar();
+            todos.splice(lastStarInd, 0, x)
+        }
+
+        //at at the begining in local storage
+        if (displaymethod == 2) {
+            todos.unshift(x);
+        }
+
         window.localStorage.setItem("todos", JSON.stringify(todos));
-
-        count++;
-        window.localStorage.setItem("ind", count);
-
-        console.log("Exista " + count + " task-uri.")
+        console.log("Exista " + todos.length + " task-uri.");
     }
 }
 
 
-function localStoragefun() {
-    //window.localStorage.clear()
+function loadLocalStorage() {
+    //localStorage.clear()
 
-    if (count == null) {
-        count = 0;
-        window.localStorage.setItem("ind", count)
+    if (displaymethod == null) {
+        displaymethod = 2;
+        window.localStorage.setItem("displaymethod", displaymethod)
     }
 
-    if (todos == null) {
+    displayMethodAux = displaymethod;
+
+    todos = JSON.parse(todos);
+
+    if (todos) {
+        displaymethod = 0;
+        for (let i = 0; i < todos.length; i++) {
+            new item(todos[i].name, todos[i].check_flag, todos[i].star_flag, 0, todos[i].creation_date);
+        }
+        displaymethod = displayMethodAux;
+    }
+    else {
         todos = [];
         window.localStorage.setItem("todos", JSON.stringify(todos));
     }
-    else{
-    todos = JSON.parse(todos);
-    }
 }
 
-function deleteAllTasks(){
-	window.localStorage.clear()
-	var tasks1 = document.getElementsByClassName("task")
 
-	console.log(tasks1.length)
-	if (tasks1.length > 0){
-		for (var i = 0; i < tasks1.length; i++)
-			tasks1[i].parentNode.removeChild(tasks1[i])
-		for (i of tasks1)
-			i.parentNode.removeChild(i)
-	}
-									
-}
+deleteAllBtn.addEventListener("mouseover", function (e) {
+    e.currentTarget.classList.remove("far")
+    e.currentTarget.classList.add("fas")
+})
 
-function addDeleteAllTasksButton(){
-	var x = document.getElementsByClassName("todo-header")
-	
-	var button = document.createElement('i')
-	button.classList.add("far", "fa-eraser")
-	button.alt = "delete-tasks"
+deleteAllBtn.addEventListener("mouseout", function (e) {
+    e.currentTarget.classList.remove("fas")
+    e.currentTarget.classList.add("far")
+})
 
-	button.addEventListener("mouseover", function(e){
-	 	e.currentTarget.classList.remove("far")
-	 	e.currentTarget.classList.add("fas")
-	}, 1)
+deleteAllBtn.addEventListener("click", function (e) {
+    localStorage.clear()
+    todos = []
+    console.log("testingcdcdcdcdc")
+    tasks.innerHTML = '';
+})
 
-	button.addEventListener("mouseout", function(e){
-	 	e.currentTarget.classList.remove("fas")
-	 	e.currentTarget.classList.add("far")
-	}, 1)
-
-	button.addEventListener("click", function (e){
-		for (i of [1, 2])//ma jur ca nu stiu cum da nu merge fara asta
-			deleteAllTasks()
-	}, 1)
-
-	x[0].appendChild(button)
-}
 
 function main() {
-    localStoragefun()
-    addDeleteAllTasksButton()
+    loadLocalStorage();
 
-    add.addEventListener('click', check);
+    addTodoBtn.addEventListener('click', addTodo);
     window.addEventListener('keydown', (e) => {
         if (e.which == 13) {
-            check();
+            addTodo();
         }
     })
-
-    for (let i = 0; i < todos.length; i++) {
-        new item(todos[i].name, todos[i].check_flag, todos[i].star_flag, 0);
-    }
-
-    console.log("Exista " + count + " task-uri.")
+    console.log("Exista " + todos.length + " task-uri.");
 }
 
 main()

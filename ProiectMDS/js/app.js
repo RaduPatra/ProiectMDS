@@ -29,7 +29,7 @@ function findLastStar() {
     return todos.length;
 }
 
-/*
+
 function addTimeEvent(date) {
 
     date.addEventListener('click', function (e) {
@@ -104,7 +104,7 @@ function getInputObject() {
     })
 
     return inputMinute
-}*/
+}
 
 sortByFav.addEventListener('click', e => {
     //sory by stars, update storage
@@ -190,7 +190,6 @@ class item {
         remove = this.removeIcon(remove, name);
         editbtn = this.editTask(editbtn, name, input);
         star = this.starIcon(star, this, f2);
-        date = this.dateIcon(date, this, f3);
 
         //load from storage insert mode
         if (displaymethod == 0)
@@ -212,23 +211,19 @@ class item {
         task.appendChild(star);
         task.appendChild(remove);
         task.appendChild(editbtn);
-        task.appendChild(date);
 
-        /*var divSecund = this.creareDivInput(f3);
-        task.appendChild(divSecund);*/
+        var divSecund = this.creareDivInput(f3);
+        task.appendChild(divSecund);
 
     }
 
-    citireData() {
-        var inp = document.createElement("INPUT");
-        inp.setAttribute("type", "date");
+    creareDivInput(flag) {
+        var div = document.createElement("div")
 
-        return inp;
-    }
+        var date = document.createElement("i")
+        date.classList.add("alarma")
 
-    dateIcon(date, obj, flag) {
-        date.classList.add("alarma") //clasa pentru pozitionare
-
+        //de bagat local storage
         if (flag == 0) {
             //initial "fal fa-alarm-clock"
             date.classList.add("fal", "fa-alarm-clock");
@@ -244,42 +239,16 @@ class item {
             date.classList.add("far", "fa-alarm-exclamation");
         }
 
-        date.addEventListener('click', function (e) {
-            if (date.classList.contains("fal")) {
-                //daca e inactiv
-                var x = obj.citireData();//nu stiu cum sa implementez :))
-                //afisam countdown de cat timp a ramas
-                date.innerHTML = x;
+        div.appendChild(addTimeEvent(date))
+        div.appendChild(getInputObject())
 
-                //schimbam icon-ul cu alarma activa
-                date.classList.remove("fal");
-                date.classList.add("fas");
-            }
+        var x = document.createElement('p')
+        x.id = "countdown"
+        div.appendChild(x)
 
-            else if (date.classList.contains("fas")) {
-                //daca e activ
-
-                //verificam daca a trecut data introdusa
-                let d = new Date();
-                alert(d);
-
-                date.classList.remove("fas");
-                date.classList.add("far", "fa-alarm-exclamation");
-                date.innerHTML = " 00:00";
-            }
-
-            else if (date.classList.contains("far")) {
-                //verificam daca a trecut alarma
-
-                //la urmatorul click se reseteaza
-                date.classList.remove("far", "fa-alarm-exclamation");
-                date.classList.add("fal", "fa-alarm-clock");
-                date.innerHTML = "";
-            }
-        }, 0)
-
-        return date
+        return div
     }
+
 
     checkIcon(check, input, obj, flag) {
         if (flag == 1) {

@@ -12,7 +12,7 @@ var todos = window.localStorage.getItem("todos");
 function searchObj(nume) {
     for (i = 0; i < todos.length; i++) {
         //console.log(todos[i])
-        if (todos[i].name == nume || todos[i].name === nume) {
+        if (todos[i].name == nume) {
             return i;
         }
     }
@@ -490,7 +490,6 @@ deleteAllBtn.addEventListener("click", function (e) {
 function main() {
     loadLocalStorage();
 
-    addTodoBtn.addEventListener('click', addTodo);
     window.addEventListener('keydown', (e) => {
         if (e.which == 13) {
             addTodo();

@@ -96,7 +96,6 @@ body {
 }
 
 .alarma{
-    right: 120px;
     position: absolute;
     right: 125px;
     top: 15px;
@@ -107,6 +106,15 @@ body {
     right: 128px;
     top: 15px;
 }
+
+#countdown{
+    position: absolute;
+    top: -5px;
+    right: 150px;
+    font-size: 2em;
+    font-family: "Font Awesome 5 Pro";
+    color: #008B8B;
+}   
 
 .delete-task {
     display: inline-block;

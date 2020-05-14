@@ -355,12 +355,22 @@ function deleteAllTasks(){
 function addDeleteAllTasksButton(){
 	var x = document.getElementsByClassName("todo-header")
 	
-	var button = document.createElement('p')
-	//button.classList.add("fas", "fa-star")
-	button.innerHTML = "<p>but</p>"
+	var button = document.createElement('i')
+	button.classList.add("far", "fa-eraser")
+	button.alt = "delete-tasks"
+
+	button.addEventListener("mouseover", function(e){
+	 	e.currentTarget.classList.remove("far")
+	 	e.currentTarget.classList.add("fas")
+	}, 1)
+
+	button.addEventListener("mouseout", function(e){
+	 	e.currentTarget.classList.remove("fas")
+	 	e.currentTarget.classList.add("far")
+	}, 1)
 
 	button.addEventListener("click", function (e){
-		for (i of [1, 2, 3])//ma jur ca nu stiu cum da nu merge fara asta
+		for (i of [1, 2])//ma jur ca nu stiu cum da nu merge fara asta
 			deleteAllTasks()
 	}, 1)
 

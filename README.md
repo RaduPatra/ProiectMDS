@@ -32,7 +32,8 @@ Dropdown pt butoanale din taskuri                                              -
 
 Bugs:<br/>
 -Daca adaugi timer la toate task-urile si astepti sa se termine, o sa porneasca doar ultima alarma terminata cand vrei sa adaugi din nou un timer <br/>
--Probleme cu alarma cand adaugi/stergi taskuri <br/>
+-Alarma se poate adauga doar dupa refresh cand se sterg/adauga taskuri
+-Alte probleme cu alarma la stergere/adaugare <br/>
 
 
 

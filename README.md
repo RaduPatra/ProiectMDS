@@ -28,7 +28,7 @@ Grupuri de liste															                               	--TODO <br/>
 Reorganizare cod																                              --TODO <br/>
 
 
-Bugs:
+Bugs:<br/>
 -Sortarea iti modifica si modul de adaugare <br/>
 -Daca adaugi timer la toate task-urile, o sa porneasca doar ultima alarma  <br/>
 

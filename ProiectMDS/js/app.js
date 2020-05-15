@@ -47,7 +47,7 @@ function addTimeEvent(date, i) {
             for (i of document.getElementsByClassName("countdown"))
                 i.style.display = "none"
 
-            date.classList.remove("fas")
+            ate.classList.remove("fas", "fa-alarm-clock")
             date.classList.add("far", "fa-alarm-exclamation")
         }
 
@@ -93,11 +93,19 @@ function getInputObject(i) {
                     cnt[i].innerHTML = "<p>" + string + "</p>"
 
                     if (valoare < 0 || cnt[0].style.display == "none") {
-                        clearInterval(x)
+                       clearInterval(x)
 
-                        if (valoare < 0)
-                            alert("Countdown over!")
                         cnt[i].style.display = "none"
+                        var ceas = document.getElementsByClassName("alarma")
+                        ceas[i].classList.remove("fas", "fa-alarm-clock")
+                        ceas[i].classList.add("far", "fa-alarm-exclamation")
+
+                        if (valoare < 0){
+                            alert("Countdown over!")
+                            var jador = new Audio(' beep.wav');
+                            jador.play();
+
+                        }
                     }
                 }, 1000)
 

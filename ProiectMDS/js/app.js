@@ -217,7 +217,41 @@ class item {
         task.appendChild(star);
         task.appendChild(remove);
         task.appendChild(editbtn);
+        // $(document).ready(function (){
+        //     $( function() {
+        //         $( task ).draggable({
+        //                 axis: "y",
+        //                 containment: "parent",
+        //                 revert: true,
 
+        //                 start: function() {
+        //                     $(this).css({opacity:0.5});
+        //                 },
+        //                 stop: function() {
+        //                     $(this).css({opacity:1})
+        //                 }
+        //             });
+        //         $( task).droppable({
+        //                 accept: ".task",
+        //                 drop: function(event, ui) {
+        //                     var draggable = ui.draggable;
+        //                     var droppable = $(this);
+        //                     var dragPos = draggable.position();
+        //                     var dropPos = droppable.position();
+        //                     console.log(dragPos + "drop:" + dropPos)
+                            
+        //                     draggable.css({
+        //                         left: dropPos.left + "px",
+        //                         top: dropPos.top + "px",
+        //                     });
+        //                     droppable.animate({
+        //                         left: dragPos.left + "px",
+        //                         top: dragPos.top + "px"                     
+        //                     })
+        //                 }
+        //         })
+        //     } );
+        // })
         var divSecund = this.creareDivInput(f3, name);
         task.appendChild(divSecund);
 

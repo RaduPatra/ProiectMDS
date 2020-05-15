@@ -17,7 +17,7 @@ Adaugare buton de editare a unui task si modificare in localStorage			    	--DON
 Adaugare buton de cross-out pentru task-uri si retinere in localStorage		  	--DONE<br/>	
 Adaugare buton de alarma cu input pentru in cat timp sa sune alarma				    --DONE<br/>	
 Sunet pentru alarma  															                            --Working on<br/>
-localStorage pentur alarma                                                    --TODO<br/>
+localStorage pentru alarma                                                    --TODO<br/>
 Sortare dupa data cand a fost adaugat task-ul si modificare in localStorage		--DONE<br/>
 Sortare dupa Favorite si modificare in localStorage														--DONE<br/>	
 CSS aspect butoane adaugate																							      --DONE<br/>	

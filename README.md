@@ -29,7 +29,6 @@ Reorganizare cod																                              --TODO <br/>
 
 
 Bugs:<br/>
--Sortarea iti modifica si modul de adaugare <br/>
 -Daca adaugi timer la toate task-urile si astepti sa se termine, o sa porneasca doar ultima alarma terminata cand vrei sa adaugi din nou un timer <br/>
 -Probleme cu alarma cand adaugi/stergi taskuri <br/>
 

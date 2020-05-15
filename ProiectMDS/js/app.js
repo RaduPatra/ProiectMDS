@@ -102,7 +102,7 @@ function getInputObject(i) {
 
                         if (valoare < 0){
                             alert("Countdown over!")
-                            var jador = new Audio(' beep.wav');
+                            var jador = new Audio('/audio/beep.wav');
                             jador.play();
 
                         }

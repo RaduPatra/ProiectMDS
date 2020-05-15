@@ -29,8 +29,8 @@ Reorganizare cod																                              --TODO <br/>
 
 
 Bugs:
--Sortarea iti modifica si modul de adaugare
--Daca adaugi timer la toate task-urile, o sa porneasca doar ultima alarma  
+-Sortarea iti modifica si modul de adaugare <br/>
+-Daca adaugi timer la toate task-urile, o sa porneasca doar ultima alarma  <br/>
 
 
 

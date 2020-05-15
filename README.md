@@ -2,7 +2,6 @@
 To do list using javascript
 
 Backlog:<br/>
-```
 
 Html																		                                    	--DONE<br/>
 CSS aspect aplicatie											                             				--DONE<br/>
@@ -26,5 +25,5 @@ Drag, Drop and Swap task-uri													                        --Working on<br
 Deadline picker cu tot cu calendar												                    --TODO <br/>
 Grupuri de liste															                               	--TODO <br/>
 Reorganizare cod																                              --TODO <br/>
-```
+
 

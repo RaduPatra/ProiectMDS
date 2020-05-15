@@ -34,6 +34,7 @@ Bugs:<br/>
 -Daca adaugi timer la toate task-urile si astepti sa se termine, o sa porneasca doar ultima alarma terminata cand vrei sa adaugi din nou un timer <br/>
 -Alarma se poate adauga doar dupa refresh cand se sterg/adauga taskuri<br/>
 -Alte probleme cu alarma la stergere/adaugare <br/>
+Daca doresti sa dai click pe edit task, in spatiul de la input o sa apara si butonul de alarma
 
 
 

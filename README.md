@@ -26,6 +26,8 @@ Drag, Drop and Swap task-uri													                        --Working on<br
 Deadline picker cu tot cu calendar												                    --TODO <br/>
 Grupuri de liste															                               	--TODO <br/>
 Reorganizare cod																                              --TODO <br/>
+CSS - butoanele de sorting/deleteall nu sunt responzive                      --TODO <br/>
+Dropdown pt butoanale din taskuri                                              --TODO <br/>
 
 
 Bugs:<br/>

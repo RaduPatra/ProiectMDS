@@ -18,6 +18,7 @@ Adaugare buton de cross-out pentru task-uri si retinere in localStorage		  	--DO
 Adaugare buton de alarma cu input pentru in cat timp sa sune alarma				    --DONE<br/>	
 Sunet pentru alarma  															                            --Working on<br/>
 localStorage pentru alarma                                                    --TODO<br/>
+Fix-uri generale pentru alarma                                                --Working on<br/>
 Sortare dupa data cand a fost adaugat task-ul si modificare in localStorage		--DONE<br/>
 Sortare dupa Favorite si modificare in localStorage														--DONE<br/>	
 CSS aspect butoane adaugate																							      --DONE<br/>	
@@ -25,5 +26,11 @@ Drag, Drop and Swap task-uri													                        --Working on<br
 Deadline picker cu tot cu calendar												                    --TODO <br/>
 Grupuri de liste															                               	--TODO <br/>
 Reorganizare cod																                              --TODO <br/>
+
+
+Bugs:
+-Sortarea iti modifica si modul de adaugare
+-Daca adaugi timer la toate task-urile, o sa porneasca doar ultima alarma  
+
 
 

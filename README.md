@@ -2,28 +2,28 @@
 To do list using javascript
 
 '''
-Backlog:
-Html																		                                    	--DONE
-CSS aspect aplicatie											                             				--DONE		
-Input																			                                    --DONE	
-Adaugarea task-urilor 													                          		--DONE	
-Creare localStorage																                            --DONE	
-Adaugarea task-urilor in localStorage									                    		--DONE	
-Stergerea task-urilor din localStorage si din lista de tasks				        	--DONE	
-Adaugare buton pentru stergere												                      	--DONE	
-Adaugare buton stergere toate task-uri										                   	--DONE	
-Adaugare buton de Favorite si retinere in localStorage 					          		--DONE	
-Adaugare buton de editare a unui task si modificare in localStorage			    	--DONE	
-Adaugare buton de cross-out pentru task-uri si retinere in localStorage		  	--DONE	
-Adaugare buton de alarma cu input pentru in cat timp sa sune alarma				    --DONE	
-Sunet pentru alarma  															                            --Working on
-localStorage pentur alarma                                                    --TODO
-Sortare dupa data cand a fost adaugat task-ul si modificare in localStorage		--DONE	
-Sortare dupa Favorite si modificare in localStorage														--DONE	
-CSS aspect butoane adaugate																							      --DONE	
-Drag, Drop and Swap task-uri													                        --Working on
-Deadline picker cu tot cu calendar												                    --TODO 
-Grupuri de liste															                               	--TODO 
-Reorganizare cod																                              --TODO 
+Backlog:<br/>
+Html																		                                    	--DONE<br/>
+CSS aspect aplicatie											                             				--DONE<br/>
+Input																			                                    --DONE<br/>
+Adaugarea task-urilor 													                          		--DONE<br/>	
+Creare localStorage																                            --DONE<br/>	
+Adaugarea task-urilor in localStorage									                    		--DONE<br/>	
+Stergerea task-urilor din localStorage si din lista de tasks				        	--DONE<br/>	
+Adaugare buton pentru stergere												                      	--DONE<br/>	
+Adaugare buton stergere toate task-uri										                   	--DONE<br/>	
+Adaugare buton de Favorite si retinere in localStorage 					          		--DONE<br/>	
+Adaugare buton de editare a unui task si modificare in localStorage			    	--DONE<br/>	
+Adaugare buton de cross-out pentru task-uri si retinere in localStorage		  	--DONE<br/>	
+Adaugare buton de alarma cu input pentru in cat timp sa sune alarma				    --DONE<br/>	
+Sunet pentru alarma  															                            --Working on<br/>
+localStorage pentur alarma                                                    --TODO<br/>
+Sortare dupa data cand a fost adaugat task-ul si modificare in localStorage		--DONE<br/>
+Sortare dupa Favorite si modificare in localStorage														--DONE<br/>	
+CSS aspect butoane adaugate																							      --DONE<br/>	
+Drag, Drop and Swap task-uri													                        --Working on<br/>
+Deadline picker cu tot cu calendar												                    --TODO <br/>
+Grupuri de liste															                               	--TODO <br/>
+Reorganizare cod																                              --TODO <br/>
 '''
 

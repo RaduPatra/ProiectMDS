@@ -10,7 +10,7 @@ html {
   height: 100%; 
   width: 0; /* initial e ascunsa */
   position: fixed; /* fixata */
-  z-index: 99999; /* Stay on top */
+  z-index: 9; /* Stay on top */
   top: 0; 
   left: 0;
   background-color: #111; /* negro, dar putem pune si transparent*/

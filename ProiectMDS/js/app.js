@@ -4,6 +4,7 @@ const addTodoBtn = document.querySelector('.createtodo');
 const sortByFav = document.querySelector('.sortByFav');
 const sortByDate = document.querySelector('.sortByDate');
 const deleteAllBtn = document.querySelector('.deleteAll');
+var workSpacesCount
 
 var displaymethod = window.localStorage.getItem("displaymethod");
 var todos = window.localStorage.getItem("todos");
@@ -514,8 +515,39 @@ function loadLocalStorage() {
         todos = [];
         window.localStorage.setItem("todos", JSON.stringify(todos));
     }
+   workSpacesCount = window.localStorage.getItem("workSpacesCount")
+
+    if (workSpacesCount)//daca nu exista in local storage o valoare
+    	workSpacesCount = 1 //atunci este egal cu 1
 }
 
+function switchWorkSpace(){
+	tasks.style.display = "none"
+}
+
+function createWorkSpace(){
+	//creem un nou div pentru a retine task-uri
+	var newDiv = document.createElement("div")
+	newDiv.classList.add("tasks")
+
+	workSpacesCount += 1 //incrementam counter-ul si il bagam in local storage
+	window.localStorage.setItem("workSpacesCount", workSpacesCount)
+
+	//setam id-ul workspace-ului
+	newDiv.id = workSpacesCount
+
+	//il introducem in pagina
+	var bigDiv = document.getElementsByClassName("todo-list")[0]
+	bigDiv.appendChild(newDiv);
+
+	//adaugam in lista din navbar acest workspace
+	let listaDeListe = document.getElementsByClassName("list-of-lists")[0]
+
+	var newList = document.createElement("p")//la click trebuie sa schimbe cu workspace-ul aferent
+	newList.innerText = "List no. " + workSpacesCount
+	listaDeListe.appendChild(newList)
+
+}
 
 deleteAllBtn.addEventListener("mouseover", function (e) {
     e.currentTarget.classList.remove("far")

@@ -6,6 +6,53 @@ html {
     display: none;
 }
 
+.sidenav {
+  height: 100%; 
+  width: 0; /* initial e ascunsa */
+  position: fixed; /* fixata */
+  z-index: 99999; /* Stay on top */
+  top: 0; 
+  left: 0;
+  background-color: #111; /* negro, dar putem pune si transparent*/
+  overflow-x: hidden; /* ascunde textul cand div are width 0 */
+  padding-top: 69px; /* contentul sa inceapa de mai jos*/ 
+  transition: 0.5s; /* durata tranzitie */
+}
+
+/* paragraf si link uri*/
+.sidenav a, p {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover, p:hover{
+  color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+#side-nav-btn{
+    position: absolute;
+    top: 50%;
+    left: 4%;
+    font-size: 2em;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
 body {
     background-image: url('../img/sand.jpg');
     background-repeat: no-repeat;

@@ -4,7 +4,7 @@ const addTodoBtn = document.querySelector('.createtodo');
 const sortByFav = document.querySelector('.sortByFav');
 const sortByDate = document.querySelector('.sortByDate');
 const deleteAllBtn = document.querySelector('.deleteAll');
-var workSpacesCount
+var workSpacesCount = 1; // = 1 doar ca momentan nu este implementare pt local storage
 
 var displaymethod = window.localStorage.getItem("displaymethod");
 var todos = window.localStorage.getItem("todos");

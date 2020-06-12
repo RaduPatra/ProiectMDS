@@ -521,10 +521,6 @@ function loadLocalStorage() {
     	//workSpacesCount = 1 //atunci este egal cu 1
 }
 
-function switchWorkSpace(){
-	tasks.style.display = "none"
-}
-
 function createWorkSpace(){
 	//creem un nou div pentru a retine task-uri
 	var newDiv = document.createElement("div")
@@ -555,17 +551,42 @@ function createWorkSpace(){
 		document.getElementById(workSpacesCount).style.display = "inline"
 	}, 1)
 
+	// numele afisat in sidevar
 	newList.innerText = "List no. " + workSpacesCount
-	listaDeListe.appendChild(newList)
+
+	// div pentru nume si iconita de stergere
+	var newContentDiv = document.createElement("div")
+	newContentDiv.classList.add('sidenav-element')
+
+	// iconita de stergere
+	var deleteIcon = document.createElement('i')
+	deleteIcon.classList.add('fas', 'fa-trash-alt')
+
+	deleteIcon.addEventListener('click', function(e){
+		document.getElementById(workSpacesCount).innerHTML = ""
+
+		// div ul parinte(de mai sus)
+		let divParinte = e.currentTarget.parentNode
+		divParinte.parentNode.removeChild(divParinte)
+
+		// prima lista din lista de liste
+		document.getElementsByClassName("tasks")[0].style.display = "block"
+	}, 1)
+
+	newContentDiv.appendChild(newList)
+	newContentDiv.appendChild(deleteIcon)
+
+	listaDeListe.appendChild(newContentDiv)
 
 }
 
 function initFirstWorkSpace(){
 	// functie pentru initializarea butonului de a schimba
 	// workspace-ul cu primul ws
-	let paragraf = document.getElementById("deInit")
+	let deInit = document.getElementsByClassName("deInit")//pair
 
-	paragraf.addEventListener('click', function(e){
+	//paragraful cu numele listei
+	deInit[0].addEventListener('click', function(e){
 		let x = document.getElementsByClassName("tasks")
 		for (i = 0; i < x.length; i++){
 			x[i].style.display = "none"
@@ -574,6 +595,20 @@ function initFirstWorkSpace(){
 		document.getElementById(1).style.display = "block"
 	}, 1)
 
+	//buton de stergere
+	deInit[1].addEventListener('click', function(e){
+		document.getElementById(1).innerHTML = ""
+
+		// div ul parinte
+		let divParinte = e.currentTarget.parentNode
+		divParinte.parentNode.removeChild(divParinte)
+
+		//prima lista din sidebar
+		document.getElementsByClassName("tasks")[0].style.display = "block"
+	}, 1)
+
+
+	//TO DO de adaugat event pt hover 
 }
 
 deleteAllBtn.addEventListener("mouseover", function (e) {

@@ -33,9 +33,9 @@ html {
   transition: 0.3s;
 }
 
-.sidenav a:hover, p:hover, i:hover{
-  color: #f1f1f1;
-}
+.sidenav p:hover, .sidenav i:hover{
+    color: #f1f1f1;
+  }
 
 .sidenav .closebtn {
   position: absolute;
@@ -50,6 +50,9 @@ html {
     padding-top: 40px;
     padding-left: 25px;
     font-size: 2em;
+}
+#side-nav-btn:hover{
+    color: #f1f1f1;
 }
 
 @media screen and (max-height: 450px) {
@@ -136,82 +139,54 @@ body {
     padding: 5px;
 }
 
-.fa-alarm-clock, .fa-alarm-exclamation {
-    display: inline-block;
+
+.alarma {
     color: rgb(66, 66, 66);
-    position: absolute;
-    text-align: center;
-    vertical-align: middle;
-    font-size: 25px;
-    padding: 5px;
 }
 
-.alarma{
+.inputMinute {
     position: absolute;
-    right: 125px;
+    right: 80px;
     top: 15px;
 }
 
-.inputMinute{
-    position: absolute;
-    right: 128px;
-    top: 15px;
-}
-
-.countdown{
+.countdown {
     position: absolute;
     top: -5px;
-    right: 150px;
+    right: 60px;
     font-size: 2em;
     font-family: "Font Awesome 5 Pro";
     color: #008B8B;
-}   
+}
 
 .delete-task {
-    display: inline-block;
-    position: absolute;
-    right: 15px;
     color: red;
-    text-align: center;
-    vertical-align: middle;
-    font-size: 20px;
 }
 
 .edit-task {
-    display: inline-block;
-    position: absolute;
-    right: 50px;
     color: green;
-    text-align: center;
-    vertical-align: middle;
-    font-size: 20px;
+    padding: 0;
     border: none;
-    background-color: whitesmoke;
+    background: none;
 }
 
 .save-edit {
-    display: inline-block;
-    position: absolute;
-    right: 50px;
     color: blue;
-    text-align: center;
-    vertical-align: middle;
-    font-size: 20px;
+    padding: 0;
     border: none;
-    background-color: whitesmoke;
-    width: 22px;
+    background: none;
 }
 
 .fa-star {
     display: inline-block;
     position: absolute;
-    right: 90px;
+    right: 40px;
     color: gray;
     text-align: center;
     vertical-align: middle;
     font-size: 20px;
     border: none;
-    background-color: whitesmoke;
+    background-color: none;
 }
 
 .fas {
@@ -255,28 +230,13 @@ button.createtodo {
 
 .task:hover {
     color: gray;
-    opacity: 85%;
+    background: rgba(255, 255, 255, 0.85);
+    z-index: 90;
 }
 
 [contenteditable="true"] {
     outline: 1px solid;
 }
-
-/*textarea {
-    background-color: transparent;
-    
-    padding-left: 10px;
-    padding-right: 10px;
-    margin: 0px;
-    width: 100%;
-    border: none;
-    word-break: break-word;
-    outline: none;
-    box-shadow: none;
-    overflow: auto;
-    resize: none;
-}
-*/
 
 button.save-edit, button.edit-task {
     padding: 0;
@@ -310,4 +270,50 @@ button.deleteAll{
     position: absolute;
     padding: 12px 14px;
     right:10%;
+}
+
+
+.dropdown {
+    display: inline-block;
+    position: absolute;
+    right: 15px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 20px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    overflow: auto;
+    z-index: 100;
+    right: -15px;
+    border-radius: 5px;
+
+}
+
+.dropdown-content i {
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content i:hover {
+    background-color: rgb(199, 199, 199);
+}
+
+.options {
+    width: 20px;
+    height: 20x;
+}
+
+/* .dropdown:hover .dropdown-content {
+    display: block;
+} */
+
+.show {
+    display: block;
 }

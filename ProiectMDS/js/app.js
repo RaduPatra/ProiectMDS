@@ -515,10 +515,10 @@ function loadLocalStorage() {
         todos = [];
         window.localStorage.setItem("todos", JSON.stringify(todos));
     }
-   workSpacesCount = window.localStorage.getItem("workSpacesCount")
+  // workSpacesCount = window.localStorage.getItem("workSpacesCount")
 
-    if (workSpacesCount)//daca nu exista in local storage o valoare
-    	workSpacesCount = 1 //atunci este egal cu 1
+    //if (workSpacesCount)//daca nu exista in local storage o valoare
+    	//workSpacesCount = 1 //atunci este egal cu 1
 }
 
 function switchWorkSpace(){

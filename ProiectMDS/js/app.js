@@ -543,12 +543,15 @@ function createWorkSpace(){
 	
 	//la click schimba workspace-ul cu cel creat mai sus
 	newList.addEventListener('click', function(e){
-		let x = document.getElementsByClassName("tasks")
-		for (i = 0; i < x.length; i++){
-			x[i].style.display = "none"
-		}
+		// let x = document.getElementsByClassName("tasks")
+		// for (i = 0; i < x.length; i++){
+		// 	x[i].style.display = "none"
+		// }
+		document.getElementById(current_workspace).style.display = "none"
+		// alternativa pentru codul comentat mai sus
 
 		document.getElementById(workSpacesCount).style.display = "inline"
+		current_workspace = workSpacesCount
 	}, 1)
 
 	// numele afisat in sidevar
@@ -587,12 +590,10 @@ function initFirstWorkSpace(){
 
 	//paragraful cu numele listei
 	deInit[0].addEventListener('click', function(e){
-		let x = document.getElementsByClassName("tasks")
-		for (i = 0; i < x.length; i++){
-			x[i].style.display = "none"
-		}
-
+		// 
+		document.getElementById(current_workspace).style.display = "none"
 		document.getElementById(1).style.display = "block"
+		current_workspace = 1
 	}, 1)
 
 	//buton de stergere
@@ -604,7 +605,11 @@ function initFirstWorkSpace(){
 		divParinte.parentNode.removeChild(divParinte)
 
 		//prima lista din sidebar
-		document.getElementsByClassName("tasks")[0].style.display = "block"
+		let taskCurent = document.getElementsByClassName("tasks")[0]
+		taskCurent.style.display = "block"
+
+		current_workspace = taskCurent.id
+
 	}, 1)
 
 

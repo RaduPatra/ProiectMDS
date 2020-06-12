@@ -189,24 +189,31 @@ class item {
 
     createItem(name, f1, f2, f3) {
         var task = document.createElement('div');
+        var dropdowndiv = document.createElement('div');
+        var dropdowncontent = document.createElement('div');
+        var options = document.createElement('i');
         var check = document.createElement('i');
         var input = document.createElement('p');
         var remove = document.createElement('i');
         var editbtn = document.createElement('button');
         var star = document.createElement("i");
-        var date = document.createElement("i");
 
 
         editbtn.classList.add("edit-task", "fa", "fa-edit");
         task.classList.add('task');
+
         input.textContent = name;
         input.classList.add('text');
         input.contentEditable = "false";
 
+        dropdowndiv.classList.add('dropdown');
+        dropdowncontent.classList.add('dropdown-content');
+
         //event listeners
         check = this.checkIcon(check, input, this, f1);
-        remove = this.removeIcon(remove, name);
+        remove = this.removeIcon(remove, name, task);
         editbtn = this.editTask(editbtn, name, input);
+        options = this.optionIcon(options, dropdowncontent, name);
         star = this.starIcon(star, this, f2);
 
         //load from storage insert mode
@@ -219,7 +226,7 @@ class item {
             tasks.insertBefore(task, tasks.children.item(lastStarInd))
         }
 
-        //sort by date mdoe
+        //sort by date mode
         if (displaymethod == 2) {
             tasks.insertBefore(task, tasks.firstChild);
         }
@@ -227,8 +234,12 @@ class item {
         task.appendChild(check);
         task.appendChild(input);
         task.appendChild(star);
-        task.appendChild(remove);
-        task.appendChild(editbtn);
+        task.appendChild(dropdowndiv);
+
+        dropdowndiv.appendChild(options);
+        dropdowndiv.appendChild(dropdowncontent);
+        dropdowncontent.appendChild(remove);
+        dropdowncontent.appendChild(editbtn);
         // $(document).ready(function (){
         //     $( function() {
         //         $( task ).draggable({
@@ -251,7 +262,7 @@ class item {
         //                     var dragPos = draggable.position();
         //                     var dropPos = droppable.position();
         //                     console.log(dragPos + "drop:" + dropPos)
-                            
+
         //                     draggable.css({
         //                         left: dropPos.left + "px",
         //                         top: dropPos.top + "px",
@@ -263,13 +274,16 @@ class item {
         //                 }
         //         })
         //     } );
+
+
         // })
-        var divSecund = this.creareDivInput(f3, name);
+
+        var divSecund = this.creareDivInput(f3, name, dropdowncontent);
         task.appendChild(divSecund);
 
     }
 
-    creareDivInput(flag, name) {
+    creareDivInput(flag, name, dropdowncontent) {
         var div = document.createElement("div")
 
         var date = document.createElement("i")
@@ -291,7 +305,8 @@ class item {
             date.classList.add("far", "fa-alarm-exclamation");
         }
 
-        div.appendChild(addTimeEvent(date, searchObj(name)))
+        dropdowncontent.appendChild(addTimeEvent(date, searchObj(name)))
+        console.log(div);
         div.appendChild(getInputObject(searchObj(name)))
 
         var x = document.createElement('p')
@@ -393,10 +408,11 @@ class item {
         return editbtn;
     }
 
-    removeIcon(remove, name) {
+    removeIcon(remove, name, task) {
         remove.classList.add("fal", "fa-trash-alt", "delete-task");
         remove.addEventListener("click", function (e) {
-            e.currentTarget.parentNode.remove();
+            console.log(e.currentTarget.parentNode);
+            task.remove();
             let ind = searchObj(name);
             todos.splice(ind, 1);
 
@@ -404,6 +420,18 @@ class item {
         }, false);
 
         return remove;
+    }
+
+
+    optionIcon(options, dropdowncontent, name) {
+        options.classList.add("options", "far", "fa-ellipsis-v");
+        options.addEventListener("click", function (e) {
+
+            dropdowncontent.classList.toggle("show");
+
+        }, false);
+
+        return options;
     }
 
     starIcon(star, obj, flag) {

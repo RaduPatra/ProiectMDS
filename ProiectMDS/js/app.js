@@ -8,6 +8,15 @@ const deleteAllBtn = document.querySelector('.deleteAll');
 var displaymethod = window.localStorage.getItem("displaymethod");
 var todos = window.localStorage.getItem("todos");
 
+//functie care deschide navigatia
+function openNav() {
+  document.getElementById("mySidenav").style.width = "250px";
+}
+
+//functie care ascunde navigatia
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+} 
 
 function searchObj(nume) {
     for (i = 0; i < todos.length; i++) {

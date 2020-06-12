@@ -5,6 +5,8 @@ const sortByFav = document.querySelector('.sortByFav');
 const sortByDate = document.querySelector('.sortByDate');
 const deleteAllBtn = document.querySelector('.deleteAll');
 var workSpacesCount = 1; // = 1 doar ca momentan nu este implementare pt local storage
+var current_workspace = 1
+var workspaces = []
 
 var displaymethod = window.localStorage.getItem("displaymethod");
 var todos = window.localStorage.getItem("todos");
@@ -520,7 +522,6 @@ function loadLocalStorage() {
     //if (workSpacesCount)//daca nu exista in local storage o valoare
     	//workSpacesCount = 1 //atunci este egal cu 1
 }
-
 function createWorkSpace(){
 	//creem un nou div pentru a retine task-uri
 	var newDiv = document.createElement("div")
@@ -552,6 +553,7 @@ function createWorkSpace(){
 
 		document.getElementById(workSpacesCount).style.display = "inline"
 		current_workspace = workSpacesCount
+		todos = workspaces[current_workspace - 1]
 	}, 1)
 
 	// numele afisat in sidevar
@@ -573,7 +575,11 @@ function createWorkSpace(){
 		divParinte.parentNode.removeChild(divParinte)
 
 		// prima lista din lista de liste
-		document.getElementsByClassName("tasks")[0].style.display = "block"
+		let taskCurent = document.getElementsByClassName("tasks")[0]
+		taskCurent.style.display = "block"
+
+		current_workspace = taskCurent.id
+		todos = workspaces[current_workspace - 1]
 	}, 1)
 
 	newContentDiv.appendChild(newList)
@@ -594,6 +600,7 @@ function initFirstWorkSpace(){
 		document.getElementById(current_workspace).style.display = "none"
 		document.getElementById(1).style.display = "block"
 		current_workspace = 1
+		todos = workspaces[current_workspace - 1]
 	}, 1)
 
 	//buton de stergere
@@ -609,6 +616,7 @@ function initFirstWorkSpace(){
 		taskCurent.style.display = "block"
 
 		current_workspace = taskCurent.id
+		todos = workspaces[current_workspace - 1]
 
 	}, 1)
 
@@ -634,6 +642,9 @@ deleteAllBtn.addEventListener("click", function (e) {
 
 
 function main() {
+    for (i = 0; i < 30; i++){
+    	workspaces[i] = []
+    }
     loadLocalStorage();
     initFirstWorkSpace();
 	

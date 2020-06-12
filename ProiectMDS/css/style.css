@@ -43,8 +43,8 @@ html {
 
 #side-nav-btn{
     position: absolute;
-    top: 50%;
-    left: 4%;
+    padding-top: 40px;
+    padding-left: 25px;
     font-size: 2em;
 }
 

@@ -543,9 +543,36 @@ function createWorkSpace(){
 	//adaugam in lista din navbar acest workspace
 	let listaDeListe = document.getElementsByClassName("list-of-lists")[0]
 
-	var newList = document.createElement("p")//la click trebuie sa schimbe cu workspace-ul aferent
+	var newList = document.createElement("p")
+	
+	//la click schimba workspace-ul cu cel creat mai sus
+	newList.addEventListener('click', function(e){
+		let x = document.getElementsByClassName("tasks")
+		for (i = 0; i < x.length; i++){
+			x[i].style.display = "none"
+		}
+
+		document.getElementById(workSpacesCount).style.display = "inline"
+	}, 1)
+
 	newList.innerText = "List no. " + workSpacesCount
 	listaDeListe.appendChild(newList)
+
+}
+
+function initFirstWorkSpace(){
+	// functie pentru initializarea butonului de a schimba
+	// workspace-ul cu primul ws
+	let paragraf = document.getElementById("deInit")
+
+	paragraf.addEventListener('click', function(e){
+		let x = document.getElementsByClassName("tasks")
+		for (i = 0; i < x.length; i++){
+			x[i].style.display = "none"
+		}
+
+		document.getElementById(1).style.display = "block"
+	}, 1)
 
 }
 
@@ -568,7 +595,8 @@ deleteAllBtn.addEventListener("click", function (e) {
 
 function main() {
     loadLocalStorage();
-
+    initFirstWorkSpace();
+	
     window.addEventListener('keydown', (e) => {
         if (e.which == 13) {
             addTodo();

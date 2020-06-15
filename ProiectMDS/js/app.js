@@ -87,8 +87,6 @@ function getInputObject(i) {
     inputMinute.value = ""
     inputMinute.style.display = "none"
 
-
-
 //Cand se apasa tasta "ENTER" se inregistreaza inputul, parsam minutele si secundele, facem countdown si revenim la icon-urile alarmei. 
     inputMinute.addEventListener('keydown', (e) => {
         if (e.which == 13) {
@@ -123,8 +121,8 @@ function getInputObject(i) {
                         //Cand ajunge la 0 cu timer-ul pornim un sunet de alarma si primim o alerta
                         if (valoare < 0){
                             alert("Countdown over!")
-                            var jador = new Audio('/audio/beep.wav');
-                            jador.play();// canta alarma
+                            var audio = new Audio('/audio/beep.wav');
+                            audio.play();// canta alarma
 
                         }
                     }

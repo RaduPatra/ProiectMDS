@@ -51,11 +51,10 @@ function addTimeEvent(date, i) {
         if (date.classList.contains("fal")) {
             //Daca butonul de alarma este inactiv
             date.classList.remove("fal")
+	    // modificam iconita astfel incat sa fie activa
             date.classList.add("fas")
 
             document.getElementsByClassName("inputMinute")[i].style.display = "inline"
-
-
         }
 
         else if (date.classList.contains("fas")) {
@@ -63,13 +62,15 @@ function addTimeEvent(date, i) {
             for (i of document.getElementsByClassName("countdown"))
                 i.style.display = "none"
 
-            ate.classList.remove("fas", "fa-alarm-clock")
+            date.classList.remove("fas", "fa-alarm-clock")
             date.classList.add("far", "fa-alarm-exclamation")
+	    // schimbam iconita cu cea pentru timp expirat
         }
 
         else if (date.classList.contains("far")) {
             //Daca butonul de alarma este "expirat"
             date.classList.remove("far", "fa-alarm-exclamation")
+	    // iconita redevine inactiva
             date.classList.add("fal", "fa-alarm-clock")
         }
     }, 0)
@@ -109,8 +110,9 @@ function getInputObject(i) {
                     let string = mins + ":" + secs
 
                     cnt[i].innerHTML = "<p>" + string + "</p>"
-
-                    if (valoare < 0 || cnt[0].style.display == "none") {
+			
+			// daca timpul < 0 sau daca s-a dat clear interval in alta parte
+                    if (valoare < 0 || cnt[i].style.display == "none") {
                        clearInterval(x)
 
                         cnt[i].style.display = "none"
@@ -122,7 +124,7 @@ function getInputObject(i) {
                         if (valoare < 0){
                             alert("Countdown over!")
                             var jador = new Audio('/audio/beep.wav');
-                            jador.play();
+                            jador.play();// canta alarma
 
                         }
                     }

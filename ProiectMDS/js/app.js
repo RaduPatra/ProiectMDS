@@ -12,175 +12,38 @@ var workspaces = []
 var displaymethod = window.localStorage.getItem("displaymethod");
 var todos = window.localStorage.getItem("todos");
 
-//functie care deschide navigatia
-function openNav() {
-  document.getElementById("mySidenav").style.width = "250px";
-}
 
-//functie care ascunde navigatia
-function closeNav() {
-  document.getElementById("mySidenav").style.width = "0";
-} 
+//functia de prelucrare a datelor din local storage. 
+function loadLocalStorage() {
+    //localStorage.clear()
 
-//Functia searchObj are ca scop cautarea unui Task dupa numele sau in array-ul de Task-uri. Daca se gaseste este returnat indicele, iar daca nu se intoarce -1
-function searchObj(nume) {
-    for (i = 0; i < todos.length; i++) {
-        if (todos[i].name == nume) {
-            return i;
-        }
+    //cand le scoatem din local storage
+    //daca nu au fost citite bine reinitializam displaymethod pentru sortari
+    if (displaymethod == null) {
+        displaymethod = 2;
+        window.localStorage.setItem("displaymethod", displaymethod)
     }
-    return -1;
-}
 
-
-//Functia are ca scop intoarcerea ultimului task in care a fost activata functia "favorite"
-//tasks trebuie sa fie sortate descr dupa numarul de stele
-function findLastStar() {
-    for (i = 0; i < todos.length; i++) {
-        if (todos[i].star_flag == 0) {
-            return i;
-        }
-    }
-    return todos.length;
-}
-
-//Folosim addTimeEvent pentru a adauga butonul de alarma si ca acesta sa se modifica cand trece dintr-o stare in alta
-function addTimeEvent(date, i) {
-
-    date.addEventListener('click', function (e) {
-        if (date.classList.contains("fal")) {
-            //Daca butonul de alarma este inactiv
-            date.classList.remove("fal")
-	    // modificam iconita astfel incat sa fie activa
-            date.classList.add("fas")
-
-            document.getElementsByClassName("inputMinute")[i].style.display = "inline"
-        }
-
-        else if (date.classList.contains("fas")) {
-            //Daca butonul de alarma este activ
-            for (i of document.getElementsByClassName("countdown"))
-                i.style.display = "none"
-
-            date.classList.remove("fas", "fa-alarm-clock")
-            date.classList.add("far", "fa-alarm-exclamation")
-	    // schimbam iconita cu cea pentru timp expirat
-        }
-
-        else if (date.classList.contains("far")) {
-            //Daca butonul de alarma este "expirat"
-            date.classList.remove("far", "fa-alarm-exclamation")
-	    // iconita redevine inactiva
-            date.classList.add("fal", "fa-alarm-clock")
-        }
-    }, 0)
-
-    return date
-}
-
-//Rolul functiei getInputObject este de a crea un "input" pentru countdown-ul de la alarma. Acesta modifica alarma intr-un input unde se introduce numarul de minute.
-function getInputObject(i) {
-    var inputMinute = document.createElement("INPUT");
-    inputMinute.setAttribute("type", "number");
-    inputMinute.placeholder = "Introduceti nr minute"
-    inputMinute.classList.add("inputMinute")
-    inputMinute.value = ""
-    inputMinute.style.display = "none"
-
-
-
-//Cand se apasa tasta "ENTER" se inregistreaza inputul, parsam minutele si secundele, facem countdown si revenim la icon-urile alarmei. 
-    inputMinute.addEventListener('keydown', (e) => {
-        if (e.which == 13) {
-            if (e.currentTarget.value != "") {
-                var cnt = document.getElementsByClassName("countdown")
-                cnt[i].style.display = "inline"
-                e.currentTarget.style.display = "none"
-
-                var val = e.currentTarget.value
-                var d = new Date()
-
-                var x = setInterval(function () {
-                    var now = new Date()
-                    var valoare = ((val * 60) - parseInt((now - d) / 1000))//numar secunde
-
-                    //parse time
-                    let mins = parseInt(valoare / 60)
-                    let secs = parseInt(valoare % 60)
-                    let string = mins + ":" + secs
-
-                    cnt[i].innerHTML = "<p>" + string + "</p>"
-			
-			// daca timpul < 0 sau daca s-a dat clear interval in alta parte
-                    if (valoare < 0 || cnt[i].style.display == "none") {
-                       clearInterval(x)
-
-                        cnt[i].style.display = "none"
-                        //schimbam incon pentru alarma
-                        var ceas = document.getElementsByClassName("alarma")
-                        ceas[i].classList.remove("fas", "fa-alarm-clock")
-                        ceas[i].classList.add("far", "fa-alarm-exclamation")
-                        //Cand ajunge la 0 cu timer-ul pornim un sunet de alarma si primim o alerta
-                        if (valoare < 0){
-                            alert("Countdown over!")
-                            var jador = new Audio('/audio/jador.mp3');
-                            jador.play();// canta alarma
-
-                        }
-                    }
-                }, 1000)
-
-            }
-        }
-    })
-
-    return inputMinute
-}
-
-//Functia sort-eaza prima data in localStorage, dupa schimba metoda de inserare si le reinsereaza sortate cand se da click pe buton
-sortByFav.addEventListener('click', e => {
-    //sory by stars, update storage
-    todos.sort(function (a, b) { return b.star_flag - a.star_flag; });
-    window.localStorage.setItem("todos", JSON.stringify(todos));
-
-    //update display method
-    displaymethod = 1;
     displayMethodAux = displaymethod;
-    window.localStorage.setItem("displaymethod", displaymethod);
-
-    //remove current tasks
-    tasks.innerHTML = '';
-
-    //add sorted tasks
-    displaymethod = 0;
-    for (let i = 0; i < todos.length; i++) {
-        new item(todos[i].name, todos[i].check_flag, todos[i].star_flag, 0, todos[i].creation_date);
+    //ii dam parse
+    todos = JSON.parse(todos);
+    //apelam constructorul pentru fiecare item din localStorage
+    if (todos) {
+        displaymethod = 0;
+        for (let i = 0; i < todos.length; i++) {
+            new item(todos[i].name, todos[i].check_flag, todos[i].star_flag, 0, todos[i].creation_date);
+        }
+        displaymethod = displayMethodAux;
     }
-    displaymethod = displayMethodAux;
-})
-
-
-//Functia are aceasi functionalitate ca si sortByFav doar ca face sort dupa data in local storage, dupa schimba inserarea si reinsereaza task urile in ordinea sortata
-sortByDate.addEventListener('click', e => {
-    //sory by time, update storage
-    todos.sort(function (a, b) { return b.creation_date - a.creation_date; });
-    window.localStorage.setItem("todos", JSON.stringify(todos));
-
-    //update display method
-    displaymethod = 2;
-    displayMethodAux = displaymethod;
-    window.localStorage.setItem("displaymethod", displaymethod);
-
-    //remove current tasks
-    tasks.innerHTML = '';
-
-    //add sorted tasks
-    displaymethod = 0;
-    for (let i = 0; i < todos.length; i++) {
-        new item(todos[i].name, todos[i].check_flag, todos[i].star_flag, 0, todos[i].creation_date);
+    else {
+        todos = [];
+        window.localStorage.setItem("todos", JSON.stringify(todos));
     }
-    displaymethod = displayMethodAux;
-})
+  // workSpacesCount = window.localStorage.getItem("workSpacesCount")
+
+    //if (workSpacesCount)//daca nu exista in local storage o valoare
+    	//workSpacesCount = 1 //atunci este egal cu 1
+}
 
 //Clasa principala de care se foloseste tot proiectul. Un obiect de tip item este un task
 class item {
@@ -349,7 +212,7 @@ class item {
 
         return check;
     }
-
+	
     //Functia editTask are ca scop adaugare functionalitatii pentru butonul de edit. Cand apasam btn textul devine un input pe care putem sa il modificam
     editTask(editbtn, name, input) {
 
@@ -515,37 +378,18 @@ function addTodo() {
     }
 }
 
-//functia de prelucrare a datelor din local storage. 
-function loadLocalStorage() {
-    //localStorage.clear()
 
-    //cand le scoatem din local storage
-    //daca nu au fost citite bine reinitializam displaymethod pentru sortari
-    if (displaymethod == null) {
-        displaymethod = 2;
-        window.localStorage.setItem("displaymethod", displaymethod)
-    }
-
-    displayMethodAux = displaymethod;
-    //ii dam parse
-    todos = JSON.parse(todos);
-    //apelam constructorul pentru fiecare item din localStorage
-    if (todos) {
-        displaymethod = 0;
-        for (let i = 0; i < todos.length; i++) {
-            new item(todos[i].name, todos[i].check_flag, todos[i].star_flag, 0, todos[i].creation_date);
+//Functia searchObj are ca scop cautarea unui Task dupa numele sau in array-ul de Task-uri. Daca se gaseste este returnat indicele, iar daca nu se intoarce -1
+function searchObj(nume) {
+    for (i = 0; i < todos.length; i++) {
+        if (todos[i].name == nume) {
+            return i;
         }
-        displaymethod = displayMethodAux;
     }
-    else {
-        todos = [];
-        window.localStorage.setItem("todos", JSON.stringify(todos));
-    }
-  // workSpacesCount = window.localStorage.getItem("workSpacesCount")
-
-    //if (workSpacesCount)//daca nu exista in local storage o valoare
-    	//workSpacesCount = 1 //atunci este egal cu 1
+    return -1;
 }
+
+
 function createWorkSpace(){
 	//creem un nou div pentru a retine task-uri
 	var newDiv = document.createElement("div")
@@ -665,6 +509,177 @@ deleteAllBtn.addEventListener("click", function (e) {
     todos = []
     tasks.innerHTML = '';
 })
+
+//functie care deschide navigatia
+function openNav() {
+  document.getElementById("mySidenav").style.width = "250px";
+}
+
+//functie care ascunde navigatia
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+} 
+
+//Functia are ca scop intoarcerea ultimului task in care a fost activata functia "favorite"
+//tasks trebuie sa fie sortate descr dupa numarul de stele
+function findLastStar() {
+    for (i = 0; i < todos.length; i++) {
+        if (todos[i].star_flag == 0) {
+            return i;
+        }
+    }
+    return todos.length;
+}
+
+
+//Functia searchObj are ca scop cautarea unui Task dupa numele sau in array-ul de Task-uri. Daca se gaseste este returnat indicele, iar daca nu se intoarce -1
+function searchObj(nume) {
+    for (i = 0; i < todos.length; i++) {
+        if (todos[i].name == nume) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+//Folosim addTimeEvent pentru a adauga butonul de alarma si ca acesta sa se modifica cand trece dintr-o stare in alta
+function addTimeEvent(date, i) {
+
+    date.addEventListener('click', function (e) {
+        if (date.classList.contains("fal")) {
+            //Daca butonul de alarma este inactiv
+            date.classList.remove("fal")
+	    // modificam iconita astfel incat sa fie activa
+            date.classList.add("fas")
+
+            document.getElementsByClassName("inputMinute")[i].style.display = "inline"
+        }
+
+        else if (date.classList.contains("fas")) {
+            //Daca butonul de alarma este activ
+            for (i of document.getElementsByClassName("countdown"))
+                i.style.display = "none"
+
+            date.classList.remove("fas", "fa-alarm-clock")
+            date.classList.add("far", "fa-alarm-exclamation")
+	    // schimbam iconita cu cea pentru timp expirat
+        }
+
+        else if (date.classList.contains("far")) {
+            //Daca butonul de alarma este "expirat"
+            date.classList.remove("far", "fa-alarm-exclamation")
+	    // iconita redevine inactiva
+            date.classList.add("fal", "fa-alarm-clock")
+        }
+    }, 0)
+
+    return date
+}
+
+//Rolul functiei getInputObject este de a crea un "input" pentru countdown-ul de la alarma. Acesta modifica alarma intr-un input unde se introduce numarul de minute.
+function getInputObject(i) {
+    var inputMinute = document.createElement("INPUT");
+    inputMinute.setAttribute("type", "number");
+    inputMinute.placeholder = "Introduceti nr minute"
+    inputMinute.classList.add("inputMinute")
+    inputMinute.value = ""
+    inputMinute.style.display = "none"
+
+
+
+//Cand se apasa tasta "ENTER" se inregistreaza inputul, parsam minutele si secundele, facem countdown si revenim la icon-urile alarmei. 
+    inputMinute.addEventListener('keydown', (e) => {
+        if (e.which == 13) {
+            if (e.currentTarget.value != "") {
+                var cnt = document.getElementsByClassName("countdown")
+                cnt[i].style.display = "inline"
+                e.currentTarget.style.display = "none"
+
+                var val = e.currentTarget.value
+                var d = new Date()
+
+                var x = setInterval(function () {
+                    var now = new Date()
+                    var valoare = ((val * 60) - parseInt((now - d) / 1000))//numar secunde
+
+                    //parse time
+                    let mins = parseInt(valoare / 60)
+                    let secs = parseInt(valoare % 60)
+                    let string = mins + ":" + secs
+
+                    cnt[i].innerHTML = "<p>" + string + "</p>"
+			
+			// daca timpul < 0 sau daca s-a dat clear interval in alta parte
+                    if (valoare < 0 || cnt[i].style.display == "none") {
+                       clearInterval(x)
+
+                        cnt[i].style.display = "none"
+                        //schimbam incon pentru alarma
+                        var ceas = document.getElementsByClassName("alarma")
+                        ceas[i].classList.remove("fas", "fa-alarm-clock")
+                        ceas[i].classList.add("far", "fa-alarm-exclamation")
+                        //Cand ajunge la 0 cu timer-ul pornim un sunet de alarma si primim o alerta
+                        if (valoare < 0){
+                            alert("Countdown over!")
+                            var jador = new Audio('/audio/jador.mp3');
+                            jador.play();// canta alarma
+
+                        }
+                    }
+                }, 1000)
+
+            }
+        }
+    })
+
+    return inputMinute
+}
+
+//Functia sort-eaza prima data in localStorage, dupa schimba metoda de inserare si le reinsereaza sortate cand se da click pe buton
+sortByFav.addEventListener('click', e => {
+    //sory by stars, update storage
+    todos.sort(function (a, b) { return b.star_flag - a.star_flag; });
+    window.localStorage.setItem("todos", JSON.stringify(todos));
+
+    //update display method
+    displaymethod = 1;
+    displayMethodAux = displaymethod;
+    window.localStorage.setItem("displaymethod", displaymethod);
+
+    //remove current tasks
+    tasks.innerHTML = '';
+
+    //add sorted tasks
+    displaymethod = 0;
+    for (let i = 0; i < todos.length; i++) {
+        new item(todos[i].name, todos[i].check_flag, todos[i].star_flag, 0, todos[i].creation_date);
+    }
+    displaymethod = displayMethodAux;
+})
+
+
+//Functia are aceasi functionalitate ca si sortByFav doar ca face sort dupa data in local storage, dupa schimba inserarea si reinsereaza task urile in ordinea sortata
+sortByDate.addEventListener('click', e => {
+    //sory by time, update storage
+    todos.sort(function (a, b) { return b.creation_date - a.creation_date; });
+    window.localStorage.setItem("todos", JSON.stringify(todos));
+
+    //update display method
+    displaymethod = 2;
+    displayMethodAux = displaymethod;
+    window.localStorage.setItem("displaymethod", displaymethod);
+
+    //remove current tasks
+    tasks.innerHTML = '';
+
+    //add sorted tasks
+    displaymethod = 0;
+    for (let i = 0; i < todos.length; i++) {
+        new item(todos[i].name, todos[i].check_flag, todos[i].star_flag, 0, todos[i].creation_date);
+    }
+    displaymethod = displayMethodAux;
+})
+
 
 //Functia main
 function main() {

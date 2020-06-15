@@ -123,7 +123,7 @@ function getInputObject(i) {
                         //Cand ajunge la 0 cu timer-ul pornim un sunet de alarma si primim o alerta
                         if (valoare < 0){
                             alert("Countdown over!")
-                            var jador = new Audio('/audio/beep.wav');
+                            var jador = new Audio('/audio/jador.wav');
                             jador.play();// canta alarma
 
                         }

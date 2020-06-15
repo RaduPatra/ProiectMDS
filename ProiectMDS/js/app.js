@@ -255,46 +255,7 @@ class item {
         dropdowndiv.appendChild(dropdowncontent);
         dropdowncontent.appendChild(remove);
         dropdowncontent.appendChild(editbtn);
-                //De aici incepe drag, drop and swap folosind .draggable si .droppable din jquery
-        //Este comentat in intregime deoarece avem un bug major si nu am reusit sa il rezolvam in timp util
-        // $(document).ready(function (){
-        //     $( function() {
-        //pentru un element de tip task pe care dam click va primi tag ul draggable
-        //         $( task ).draggable({
-        //                 axis: "y",
-        //                 containment: "parent",
-        //                 revert: true,
-
-        //                 start: function() {
-        //                     $(this).css({opacity:0.5});
-        //                 },
-        //                 stop: function() {
-        //                     $(this).css({opacity:1})
-        //                 }
-        //             });
-        //         $( task).droppable({
-        //                 accept: ".task",
-        //                 drop: function(event, ui) {
-                            //luam pozitia taskului draggable si a celui droppable si le interschimbam
-                            //extragem pozitiile
-        //                     var draggable = ui.draggable;
-        //                     var droppable = $(this);
-        //                     var dragPos = draggable.position();
-        //                     var dropPos = droppable.position();
-        //                     console.log(dragPos + "drop:" + dropPos)
-                                //facem interschimbarea
-        //                     draggable.css({
-        //                         left: dropPos.left + "px",
-        //                         top: dropPos.top + "px",
-        //                     });
-        //                     droppable.animate({
-        //                         left: dragPos.left + "px",
-        //                         top: dragPos.top + "px"                     
-        //                     })
-        //                 }
-        //         })
-        //     } );
-        // })
+           
         //cream un div secund pentru alarma folosind functia creareDivInput
         var divSecund = this.creareDivInput(f3, name, dropdowncontent);
         task.appendChild(divSecund);

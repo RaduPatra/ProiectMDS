@@ -5,7 +5,7 @@ html {
 ::-webkit-scrollbar {
     display: none;
 }
-
+/* legate de meniul lateral din partea stanga*/
 .sidenav {
   height: 100%; 
   width: 0; /* initial e ascunsa */
@@ -13,7 +13,7 @@ html {
   z-index: 9; /* Stay on top */
   top: 0; 
   left: 0;
-  background-color: rgba(255,255,255, 0.7); /* negro, dar putem pune si transparent*/
+  background-color: #111; /* negro, dar putem pune si transparent*/
   overflow-x: hidden; /* ascunde textul cand div are width 0 */
   padding-top: 69px; /* contentul sa inceapa de mai jos*/ 
   transition: 0.5s; /* durata tranzitie */
@@ -25,209 +25,232 @@ html {
 
 /* paragraf si link uri*/
 .sidenav a, p, i {
-  padding: 8px 8px 8px 32px;
-  text-decoration: none;
-  font-size: 25px;
+  padding: 8px 8px 8px 32px; /*adaugat padding pentru pozitionare*/
+  text-decoration: none; /* inlatura underline-ul de la linkuri*/
+  font-size: 25px; /*seteaza dimensiunea fontului*/
   color: #818181;
   display: block;
-  transition: 0.3s;
+  transition: 0.3s; /*specifica timpul pentru tranzitie*/
 }
 
 .sidenav p:hover, .sidenav i:hover{
-    color: #f1f1f1;
+    color: #f1f1f1; /*seteaza culoarea alba cu tranzitie de 0.3s pentru 
+                        elementele din meniul de selectat si creat alte list*/
   }
-
+/*pozitionarea meniului odata ce s-a facut click pe butonul de acces catre meniu(cele 3 puncte)
+  dar si a butonului de exit*/
 .sidenav .closebtn {
   position: absolute;
   top: 0;
   right: 25px;
-  font-size: 36px;
+  font-size: 36px;/*dimesiunea fontului*/
   margin-left: 50px;
 }
-
+/*pozitionarea butonului si dimensiunea fontului*/
 #side-nav-btn{
     position: absolute;
     padding-top: 40px;
     padding-left: 25px;
     font-size: 2em;
 }
-#side-nav-btn:hover{
-    color: #f1f1f1;
-}
 
+#side-nav-btn:hover{
+    color: #f1f1f1;/*schimbarea culorii butonului ce acceseaza meniul
+                         cand se face hover pe el*/
+}
+/*la modificarea lungimii browser-ului se vor modifica concomitent 
+dimensiunea butonuli de close al meniului pentru schimbarea listelor
+si padding-ul */
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
 }
 
 body {
-    background-image: url('../img/sand.jpg');
-    background-repeat: no-repeat;
+    background-image: url('../img/sand.jpg');/*introduce imaginea de background a aplicatiei*/
+    background-repeat: no-repeat;/*face ca aplicatia sa nu se repete*/
     background-size: cover;
-    background-attachment: fixed;
-    background-position: center;
+    background-attachment: fixed;/*imaginea este fixa*/
+    background-position: center;/* si pozitionata in centrul paginii*/
 }
-
+/*pozitionarea titlului*/
 .list-title {
     position: relative;
-    text-align: left;
+    text-align: left;/*alinierea textului incepand din partea stanga a paginii*/
     top: 20px;
     left: 10%;
-    filter: invert(1);
+    filter: invert(1);/*schimba culoarea din: default negru in alb*/
 }
-
+/*Un div in care sunt continute toate task-urile dintr-un to-do list*/
 .tasks {
     position: absolute;
-    top: 115px;
-    width: 100%;
-    bottom: 90px;
-    overflow: auto;
+    top: 115px;/*distanta de la inceputul paginii pana la inceputul listei de taskuri*/
+    width: 100%;/*seteaza latimea listei cand latimea paginii*/
+    bottom: 90px;/*se lasa o distanta intre sfarsitul listei si sfarsitul paginii*/
+    overflow: auto;/*in momentul in care sunt prea multe elemente adaugate in lista se creaza scrollbar-ul
+                    si optiunea de a da scroll*/
     margin: 0 auto;
 }
-
+    /*stilizarea pentru fiecare input din to-do list(fiecare task)*/
 .task {
-    position: relative;
-    width: 80%;
+    position: relative;/*pozitionare relativa*/
+    width: 80%;/*latimea 80% din latimea paginii*/
     min-height: 60px;
     min-width: 200px;
     border-radius: 10px;
+    /*setari legate de dimensiune*/
     margin: auto;
     margin-top: 5px;
+    /*realizarea distantei dintre task-uri*/
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
+    /*cele trei comenzi anterioare fac ca task-urile sa se afiseze sub forma de coloana*/
     justify-content: center;
     padding-left: 45px;
     padding-right: 130px;
-    background-color: whitesmoke;
+    /*se introduce padding in stanga si in dreapta pentru o aliniere mai buna a scrisului*/
+    background-color: whitesmoke;/*culoarea backgroundului unui task*/
 }
 
 .task p {
     display: inline-block;
     line-height: normal;
     vertical-align: middle;
-    padding: 10px;
+    padding: 10px;/*distantarea intre doua linii de text din acelasi task*/
     margin: 0;
-    word-break: break-word;
+    word-break: break-word;/*ruperea unui cuvant in momentul in care se ajunge la capatul liniei pentru a evita overflow*/
 }
 
 .todo-header {
     position: fixed;
-    height: 100px;
+    height: 100spx;
     top: 0px;
     width: 100%;
 }
-
+/*stilizarea inputului prin care se fac adaugari in lista de to-do*/
 .todo-footer {
-    position: fixed;
-    height: 90px;
+    position: fixed;/*fixat in pagina*/
+    height: 90px;/*inaltimea prestabilita*/
     bottom: 0px;
     width: 100%;
-    display: flex;
+    display: flex;/*pentru a se modifica cand se modifica si dimensiunea paginii*/
 }
 
 /* pentru butonul de check */
 
 .unchecked, .fa-check-circle, .fa-dot-circle {
     display: inline-block;
-    left: 5px;
-    color: rgb(66, 66, 66);
+    left: 5px;/*datorita pozitionarii absolute, left va fi relativ la parinte, adica la un task, marginea stanga avand 5 pixeli*/
+    color: rgb(66, 66, 66);/*seteaza culoarea*/
     position: absolute;
     text-align: center;
     vertical-align: middle;
     font-size: 25px;
     padding: 5px;
+    /*legate de dimensiune si aliniere*/
 }
 
 
 .alarma {
-    color: rgb(66, 66, 66);
+    color: rgb(66, 66, 66);/*culoarea butonului de alarma*/
 }
-
+/*pozitionarea inputuli in care se introduc minutele pentru temporizator*/
 .inputMinute {
     position: absolute;
     right: 80px;
     top: 15px;
 }
-
+/*pozitionarea count-downului care apare in urma apasarii pe butonul in forma de ceas
+    si introducerii unui numar de minute*/
 .countdown {
-    position: absolute;
+    position: absolute;/*pozitionat absolut*/
     top: -5px;
     right: 60px;
-    font-size: 2em;
-    font-family: "Font Awesome 5 Pro";
-    color: #008B8B;
+    /*pozitionare*/
+    font-size: 2em;/*dimensiunea textului*/
+    font-family: "Font Awesome 5 Pro";/*un font custom*/
+    color: #008B8B;/*culoarea cronometrului*/
 }
-
+/*butonul de delete*/
 .delete-task {
-    color: red;
+    color: red;/*culoarea butonuli de delete(cosul de gunoi rosu)*/
 }
-
+/*butonul de edit*/
 .edit-task {
-    color: green;
+    color: green;/*culoare*/
     padding: 0;
     border: none;
     background: none;
+    /*se elimina border-ul si background-ul*/
 }
-
+/*butonul de save*/
 .save-edit {
-    color: blue;
+    color: blue;/*culoare*/
     padding: 0;
     border: none;
     background: none;
+    /*se elimina border-ul si background-ul*/
 }
+/*cele 3 butoane: delete,edit,save sunt preluate dintr-o colectie de butoane/semne customizate*/
 
+/*steluta care cand este apasata se coloreaza confrom comenzii date de la linia 213 din codul css si sorteaza task-urile*/
 .fa-star {
     display: inline-block;
     position: absolute;
     right: 40px;
-    color: gray;
+    /*asigurarea pozitionarii*/
+    color: gray;/*culoarea*/
     text-align: center;
     vertical-align: middle;
-    font-size: 20px;
+    font-size: 20px;/*dimensiunea*/
     border: none;
     background-color: none;
+    /*eliminarea border-ului si al background-ului*/
 }
 
 .fas {
-    color: #008B8B;
+    color: #008B8B;/*vezi linia 197*/
 }
-
+/*stilizarea div-ului ce contine inputuli si butonul pentru 
+    adaugarea elementelor noi in lista de taskuri*/
 .add-todo {
-    position: relative;
+    position: relative;/*pozitionare relativa*/
     border-radius: 5px;
-    background-color: white;
     margin: auto;
-    width: 80%;
-    background-color: rgba(0, 0, 0, 0.5);
-    height: 60px;
-    display: flex;
+    width: 80%;/*latimea 80% din dimensiunea paginii*/
+    background-color: rgba(0, 0, 0, 0.5);/*culoarea de background setata negru*/
+    height: 60px;/*inaltimea 60px*/
+    display: flex;/*se modifica la modificarea dimensiunii paginii*/
 }
-
+/*stilizarea inputului prin care se fac adaugari in lista de to-do*/
 .todoinput {
     position: relative;
-    left: 20px;
-    border: none;
-    padding: 5px;
-    background: transparent;
-    color: white;
+    left: 20px;/*pozitionarea fata de conteinerul in care este continut, ulterior
+                    pozitionarea fata de butonul de createtodo(vezi linia 238)*/
+    border: none;/*se elimina border-ul*/
+    padding: 5px;/*padding*/
+    background: transparent;/*backgroundul este transparent*/
+    color: white;/*culoarea scrisului/continului este alba*/
     width: calc(100% - 57px);
 }
-
+/*stilizarea butonului care la apasare/ apasarea tastei enter,
+ introduce un nou unic task in lista de taskuri*/
 button.createtodo {
     position: relative;
     left: 5px;
-    background-color: transparent;
-    border: none;
-    color: white;
-    font-size: 25px;
-    outline: none;
+    background-color: transparent;/*backgroundul este transparent*/
+    border: none;/*fara border*/
+    color: white;/*culoarea butonului alba*/
+    font-size: 25px;/*dimensiune*/
+    outline: none;/*fara outline*/
 }
-
+/*cand nu este nimic scris in input(aka by defalut), avem un placeholder care,
+ intuitiv, tine locul scrisului si are culoarea gri(vezi linia 251)*/
 ::placeholder {
     color: gray;
 }
-
+/*cand ducem mouse-ul peste un task, containerul in care este continut isi schimba culoarea(se inchide la culoare, din alb devenind gri)*/
 .task:hover {
     color: gray;
     background: rgba(255, 255, 255, 0.85);
@@ -237,42 +260,44 @@ button.createtodo {
 [contenteditable="true"] {
     outline: 1px solid;
 }
-
+/*pozitia butoanelor de save si edit*/
 button.save-edit, button.edit-task {
     padding: 0;
     margin: 0;
 }
-
+/*stilizarea celor doua butoane de sortat(by date si by favorites),
+ ce se afla in proximitatea titlului*/
 .headerbtn {
-    margin-top: 20px;
-    border: 2px solid gray;
-    color: gray;
-    background-color: white;
+    margin-top: 20px;/*distanta fata de titlu*/
+    border: 2px solid gray;/*culoarea borderului*/
+    color: gray;/*culoarea scrisului*/
+    background-color: white;/*culoarea backgroundului*/
     padding: 8px 20px;
     border-radius: 8px;
-    font-size: 14px;
+    font-size: 14px;/*dimensiunea scrisului*/
     font-weight: bold;
-    overflow: hidden;
-    display: inline-block;
+    overflow: hidden;/*in caz de overflow, acesta va fi ascuns*/
+    display: inline-block;/*pentru a aparea in line, nu suprapuse*/
 }
 
 .headerbtn:active{
-    opacity: 80%;
+    opacity: 80%;/*in momentul in care este apasat, unul din cele doua
+     butoane din proximitatea titlului isi schimba opacitatea la 80%*/
+
 }
-
-
+/*pozitionarea butoanelor de sortare*/
 button.sortByDate, button.sortByFav {
     position: relative;
     left: 10%;
 }
-
+/*pozitionarea butonului care sterge toate taskurile aflat in partea din dreapta sus a paginii*/
 button.deleteAll{
     position: absolute;
     padding: 12px 14px;
     right:10%;
 }
 
-
+/*meniul dropdown al fiecarui task*/
 .dropdown {
     display: inline-block;
     position: absolute;
@@ -281,15 +306,15 @@ button.deleteAll{
     vertical-align: middle;
     font-size: 20px;
 }
-
+/*continutul meniului dropdown mai sus metinonat*/
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: white;
+    background-color: white;/*culoarea backgroundului*/
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     overflow: auto;
-    z-index: 100;
+    z-index: 100;/*pentru a avea prioritate peste orice alt element*/
     right: -15px;
     border-radius: 5px;
 
@@ -300,7 +325,7 @@ button.deleteAll{
     text-decoration: none;
     display: block;
 }
-
+/*in momentul in care se face hover pe unul dintre elementele din meniul dropdown se schimba culoarea de background*/
 .dropdown-content i:hover {
     background-color: rgb(199, 199, 199);
 }
@@ -309,10 +334,6 @@ button.deleteAll{
     width: 20px;
     height: 20x;
 }
-
-/* .dropdown:hover .dropdown-content {
-    display: block;
-} */
 
 .show {
     display: block;

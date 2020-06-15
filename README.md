@@ -1,6 +1,8 @@
 # ProiectMDS
 To do list using javascript 
 
+Documentatie: https://docs.google.com/document/d/1bdXGiV7rO1lki9Zzw41db0vN9G-ye0LEQDwz9GwjtqE/edit
+
 Backlog:<br/>
 
 Html																		                                    	--DONE<br/>
